@@ -1,5 +1,5 @@
 # SlugManager
-All code related to group project for cse115a at UCSC.
+All code related to group project for cse115a at UCSC. Made by Asher Etherington, Kenny Losier, Mia Santos, Nathan Le, Poppy Garner, Gino Zarich.
 
 ## High Level Goals:
 - User Roles and Permissions: The app should support administrators and team members, each with different permissions. Administrators control task creation, deadlines, and task assignments.
@@ -25,5 +25,3 @@ All code related to group project for cse115a at UCSC.
 - As a project ‘administrator’ I want to be able to add and edit tasks to a project so that me and any other team members can see the tasks for this project
 - As a project ‘administrator’ I want to be able to assign tasks to other team members
 - As a team member I want to be able to update my progress on any assigned tasks so that I can inform the rest of my team members on my progress
-
-
