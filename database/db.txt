@@ -1,1 +1,0 @@
-mongodb database uri = mongodb+srv://asherce21:A252478ssd@cluster0.1xxrv63.mongodb.net/
