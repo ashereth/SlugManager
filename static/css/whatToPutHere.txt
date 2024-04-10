@@ -1,1 +1,1 @@
-All images and css files should go in this folder.
+All static images, sounds and css files should go in this folder.
