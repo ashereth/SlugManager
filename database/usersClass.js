@@ -1,17 +1,17 @@
-const { MongoClient } = require('mongodb');
-const config = require("./db.js");
+import { MongoClient } from 'mongodb';
+//import needed database data
+import { config } from "./db.js";
 
 /*
-SCHEMA FOR USERS BELOW
+SCHEMA FOR USERS BELOW------------------------------------------------------
 
 user = {
     _id: auto generated,
     username: should be given,
     password: should be the hash of the given password,
-    projects: an array of projects related to the user. Initially empty.
+    projects: an array of project id's related to the user. Initially empty.
 }
-*/
-
+-----------------------------------------------------------------------------*/
 
 // A class for users with all needed methods to access and alter the users data collection
 class Users {
