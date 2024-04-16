@@ -1,5 +1,17 @@
 {
+  "name": "slugmanager",
+  "description": "All code related to group project for cse115a at UCSC. Made by Asher Etherington, Kenny Losier, Mia Santos, Nathan Le, Poppy Garner, Gino Zarich.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
   "dependencies": {
-    "mongoose": "^8.3.1"
-  }
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  },
+  "author": "",
+  "license": "ISC"
 }
