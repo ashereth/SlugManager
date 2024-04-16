@@ -95,9 +95,11 @@ export class Tasks {
     }
 }
 
+/*
 //usage example for adding a task
 const uri = config.mongoURI;
 const tasks = new Tasks(uri);
 
-//await tasks.createTask("test project", "test task");
+await tasks.createTask("test project", "test task");
 await tasks.deleteTask("test project", "test task");
+*/
