@@ -50,7 +50,7 @@ export class Users {
         //Check for existing user
         const existingUser = await collection.findOne({ username: username });
         if (existingUser) {
-            console.log('User ${username} already exists. Please login');
+            console.log(`User ${username} already exists. Please login`);
             return null;
         }
 
@@ -116,7 +116,7 @@ export class Users {
         }
     }
 
-    //Method for removi a project to a user in the database
+    //Method for removing a task to a user in the database
     async removeProjectFromUser(username, projectName) {
         const client = new MongoClient(this.uri);
 

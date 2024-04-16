@@ -16,7 +16,7 @@ project = {
 -----------------------------------------------------------------------------*/
 
 
-class Projects {
+export class Projects {
     //constructor sets uri database name and the collection to add to
     constructor() {
         this.uri = config.mongoURI;
@@ -95,11 +95,65 @@ class Projects {
             await client.close();
         }
     }
+
+    //Method for adding a project to a user in the database
+    async addTaskToProject(projectName, taskName) {
+        const client = new MongoClient(this.uri);
+
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName);
+            const collection = database.collection(this.collectionName);
+
+            // Update the user's projects array
+            const result = await collection.updateOne(
+                { name: projectName },
+                { $push: { tasks: taskName } }
+            );
+
+            console.log(`${result.modifiedCount} document(s) updated`);
+
+        } catch (error) {
+            console.error('Error adding task to project:', error);
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }
+
+    //Method for removing a task from the project database
+    async removeTaskFromProject(projectName, taskName) {
+        const client = new MongoClient(this.uri);
+
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName);
+            const collection = database.collection(this.collectionName);
+
+            // Update the user's projects array
+            const result = await collection.updateOne(
+                { name: projectName},
+                { $pull: { tasks: taskName } }
+            );
+
+            if (result.modifiedCount === 1) {
+                console.log(`Task ${taskName} removed from ${projectName}`);
+            } else {
+                console.log(`Task ${taskName} not found under project ${projectName}`)
+            }
+
+        } catch (error) {
+            console.error('Error removing task from project', error);
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }
 }
+
 
 //usage example for adding a project
 const uri = config.mongoURI;
 const projects = new Projects(uri);
 
-await projects.createProject("asher", "test project");
-await projects.deleteProject("asher", "test project");
+//await projects.createProject("asher", "test project");
+//await projects.deleteProject("asher", "test project");
+
