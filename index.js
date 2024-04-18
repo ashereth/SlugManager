@@ -2,7 +2,7 @@
 //   route handling and http request processing
 
 /* ---------- Assuming you have all needed packages installed -----------------------
-        use command: powershell -ExecutionPolicy Bypass -Command "nodemon index.js"
+        use command: powershell -ExecutionPolicy Bypass -Command "node index.js"
                     in a vscode terminal to start up server
 -------------------------------------------------------------------------------------*/
 import express from "express";
