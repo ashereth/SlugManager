@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<head>
-    <title>User Registration</title>
-</head>
-<body>
+<%- include("./partials/header.ejs") %>
     <h1>SlugManager Registration</h1>
     <p>Please fill the form below</p>
     <form id="registrationForm" action="/register" method="POST">
@@ -18,4 +14,4 @@
         <button type="submit">Register</button>
     </form>
 </body>
-</html>
+<%- include("./partials/footer.ejs")  %>

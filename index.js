@@ -22,17 +22,18 @@ app.use(bodyParser.urlencoded({extended: true}));//bodyparser can now parse form
 
 // main route
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/templates/index.html");
+    res.render(__dirname + "/templates/index.ejs");
 });
 
 app.get("/register", (req, res) => {
-    res.sendFile(__dirname + "/templates/register.html");
+    res.render(__dirname + "/templates/register.ejs");
 });
 
 app.post("/register", (req, res) => {
     const uri = config.mongoURI;
     const users = new Users(uri);
     const {username, password} = req.body;
+    //console.log(username, password);
     users.createUser(username, password);
     res.status(201).json({username, password});
 });
