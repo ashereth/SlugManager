@@ -32,35 +32,35 @@ export class Users {
 
     // method used to create a new user given a username and password
     async createUser(username, password) {
-    const client = new MongoClient(this.uri);
-    
-    try {
-        await client.connect();// Connect to MongoDB
-        //get the database
-        const database = client.db(this.dbName);
-        //get the collection
-        const collection = database.collection(this.collectionName);
-        //initialize a new user
-        const newUser = {
-        username: username,
-        password: hash(password),
-        projects: []
-        };
+        const client = new MongoClient(this.uri);
+        
+        try {
+            await client.connect();// Connect to MongoDB
+            //get the database
+            const database = client.db(this.dbName);
+            //get the collection
+            const collection = database.collection(this.collectionName);
+            //initialize a new user
+            const newUser = {
+            username: username,
+            password: hash(password),
+            projects: []
+            };
 
-        //Check for existing user
-        const existingUser = await collection.findOne({ username: username });
-        if (existingUser) {
-            console.log(`User ${username} already exists. Please login`);
-            return null;
-        }
+            //Check for existing user
+            const existingUser = await collection.findOne({ username: username });
+            if (existingUser) {
+                console.log(`User ${username} already exists. Please login`);
+                return null;
+            }
 
-        //insert the new user into the collection
-        const result = await collection.insertOne(newUser);
-        //print a success message
-        console.log(`User ${username} created successfully.`);
-        return result.insertedId; // Return the ID of the inserted document
+            //insert the new user into the collection
+            const result = await collection.insertOne(newUser);
+            //print a success message
+            console.log(`User ${username} created successfully.`);
+            return result.insertedId; // Return the ID of the inserted document
         } catch (error) {//if there was an error print the error
-        console.error('Error creating user:', error);
+            console.error('Error creating user:', error);
         }finally {
             await client.close(); // Close the connection
         }
