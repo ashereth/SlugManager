@@ -5,21 +5,20 @@
 }
 
 body {
-    background-color: #F8F6E3;
+    background-color: white;
     font-family: Arial, Helvetica, sans-serif;
     color: black;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* padding-top: 50px; */
 }
 
 header {
+    background-color: white;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: white;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -28,11 +27,11 @@ header {
 }
 
 footer {
+    background-color: white;
     margin-top: auto; /* push to the bottom */
-    text-align: center;
-    padding: 20px 0;
-    /* background-color: #7AA2E3; */
     width: 100%; /* make the footer full width */
+    padding: 20px 0;
+    text-align: center;
 }
 
 .logo {
@@ -73,8 +72,8 @@ footer {
 }
 
 .nav-links a {
-    text-decoration: none;
     color: black;
+    text-decoration: none;
     font-size: 16px;
     transition: color 0.3s; /* add transition effect for smooth color change */
 }
@@ -85,25 +84,30 @@ footer {
 
 /* ---------------- BUTTONS ---------------- */
 .button-box {
+    background-color: #7AA2E3;
     display: inline-block;
     padding: 10px 20px; /* adjust padding as needed */
     border: 2px solid #7AA2E3;
     border-radius: 5px; /* rounded corners */
-    background-color: #7AA2E3;
 }
 
 .button-box a {
+    color: white;
     text-decoration: none;
-    color: white; /* text color */
+    transition: color 0.3s;
+}
+
+.button-box a:hover {
+    color: yellow;
 }
 
 /* ---------------- REG FORM ---------------- */
 .form-container /* same as button tbh */ {
+    background-color: #7AA2E3;
     display: inline-block;
     padding: 10px 20px;
     border: 2px solid #7AA2E3;
     border-radius: 5px;
-    background-color: #7AA2E3;
 }
 
 #registrationForm {
@@ -113,8 +117,8 @@ footer {
 }
 
 #registrationForm label {
-    margin-right: 10px;
     color: white;
+    margin-right: 10px;
 }
 
 #registrationForm input,
@@ -123,7 +127,9 @@ footer {
 }
 
 /* ---------------- FONTS ---------------- */
-/* poppins fonts */
+/* Google Fonts https://fonts.google.com/ */
+
+/* poppins */
 .poppins-thin {
     font-family: "Poppins", sans-serif;
     font-weight: 100;

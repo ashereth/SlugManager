@@ -1,10 +1,11 @@
-// Main application file that handles backend tasks such as
-//   route handling and http request processing
+// Main application file that handles backend tasks such as route handling and http request processing
 
 /* ---------- Assuming you have all needed packages installed -----------------------
         use command: powershell -ExecutionPolicy Bypass -Command "nodemon index.js"
                     in a vscode terminal to start up server
 -------------------------------------------------------------------------------------*/
+
+/* ---------------- SET-UP ---------------- */
 import express from "express";                              // express module
 import { dirname } from "path";                             // extract directory name from file path
 import { fileURLToPath } from "url";                        // convert a file URL to a file path string
@@ -21,9 +22,10 @@ const port = 3000;
 //bodyParser can now parse forms
 app.use(bodyParser.urlencoded({extended: true}));
 
-// serve static files from the 'static' directory --> MIA
+// serve static files from the 'static' directory
 app.use(express.static(__dirname + "/static"));
 
+/* ---------------- VIEWS ---------------- */
 // main route; index page
 app.get("/", (req, res) => {
     res.render(__dirname + "/templates/index.ejs");
@@ -40,7 +42,7 @@ app.post("/register", (req, res) => {
     const {username, password} = req.body;                  // extract user/pass from request body
     //console.log(username, password);
     users.createUser(username, password);
-    res.status(201).json({username, password});             // sends created response back to client
+    res.status(201).json({username, password});             // send 'created' response back to client
 });
 
 // make app listen on a port and print out the url of the running
