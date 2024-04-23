@@ -14,7 +14,12 @@
             <label class="work-sans-regular" for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
             <br>
+        <% if (error) { %>
+            <p>Error: username is already in use.</p>
+            <p>Please login instead</p>
+       <% } %>
             <button type="submit">Register</button>
+        
         </form>
         
     </div>
