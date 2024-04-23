@@ -59,16 +59,14 @@ app.get("/register", (req, res) => {
 app.post("/register", async (req, res) => {
     const uri = config.mongoURI;                            // retrieve mongoDB URI
     const users = new Users(uri);                           // new instance of Users class
-    const {username, password} = req.body;                  // extract user/pass from request body
-    //create a new user
-    
-    //res.status(201).json({username, password});             // send 'created' response back to client
+    const {username, password} = req.body;                  // extract user/pass from request body    
     //sign in using the user info
     try {
-        //make sure user doesnt already exist
+        //make sure user doesnt already exist by calling createUser
+        //must use await so that function finishes before executing more code
         let success = await users.createUser(username, password);
         if (success) {
-            //if it was a new user send them to login page
+            //if success=true and it was a new user send them to login page
             res.redirect("/login");
         } else {
             //if it wasnt a new user send an error and reload
