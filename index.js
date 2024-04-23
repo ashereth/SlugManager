@@ -1,7 +1,7 @@
 // Main application file that handles backend tasks such as route handling and http request processing
 
 /* ---------- Assuming you have all needed packages installed -----------------------
-        use command: powershell -ExecutionPolicy Bypass -Command "nodemon index.js"
+        use command (for windows): powershell -ExecutionPolicy Bypass -Command "nodemon index.js"
                     in a vscode terminal to start up server
 -------------------------------------------------------------------------------------*/
 
