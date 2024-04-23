@@ -47,6 +47,19 @@ app.post("/register", (req, res) => {
     res.status(201).json({username, password});             // send 'created' response back to client
 });
 
+// login page
+app.get("/login", (req, res) => {
+    res.render(__dirname + "/templates/login.ejs");
+});
+
+app.post("/login", (req, res) => {                        
+    const uri = config.mongoURI;
+    const users = new Users(uri);
+    const {username, password} = req.body;
+    users.login(username, password);   
+    res.status(200).json({username, password})               
+});
+
 // make app listen on a port and print out the url of the running app
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
