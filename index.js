@@ -15,7 +15,7 @@ import { config } from "./database/db.js";                  // configuration set
 import session from 'express-session';
 import { createHash } from 'crypto';
 
-// function for hashing passwords
+// function for hashing passwords used by login in order to compare hashes of given password and one in database
 function hash(string) {
     return createHash('sha256').update(string).digest('hex');
 } 
