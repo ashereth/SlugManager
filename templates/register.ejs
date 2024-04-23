@@ -1,17 +1,22 @@
 <%- include("./partials/header.ejs") %>
-    <h1>SlugManager Registration</h1>
-    <p>Please fill the form below</p>
-    <form id="registrationForm" action="/register" method="POST">
-        <label for="username">Username:</label>
-        <input type="username" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br>
-        <button type="submit">Register</button>
-    </form>
+    <h2 class="work-sans-bold">SlugManager Registration</h2>
+    <p class="work-sans-regular">Please fill the form below:</p>
+    <div class="form-container">
+        
+        <!-- registration form -->
+        <form id="registrationForm" action="/register" method="POST">
+            <label class="work-sans-regular" for="username">Username:</label>
+            <input type="username" id="username" name="username" required>
+            <br>
+            <label class="work-sans-regular" for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <label class="work-sans-regular" for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <br>
+            <button type="submit">Register</button>
+        </form>
+        
+    </div>
 </body>
 <%- include("./partials/footer.ejs")  %>

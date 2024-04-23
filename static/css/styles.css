@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+footer {
+    background-color: white;
+    margin-top: auto; /* push to the bottom */
+    width: 100%; /* make the footer full width */
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logo {
+    color: #7AA2E3;
+    transition: color 0.3s; /* add transition effect for smooth color change */
+}
+
+.logo:hover{
+    color: yellow;
+}
+
+.container {
+    margin-top: 70px;
+}
+
+.center-content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ---------------- NAV ---------------- */
+.navbar {
+    display: flex;
+    list-style-type: none; /* remove bullet points */
+}
+
+.nav-links {
+    display: flex; /* make links horizontal */
+}
+
+.nav-links li {
+    margin-right: 15px;
+    list-style-type: none; /* remove bullet points */
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s; /* add transition effect for smooth color change */
+}
+
+.nav-links a:hover {
+    color: #6AD4DD; /* change color when hovered over */
+}
+
+/* ---------------- BUTTONS ---------------- */
+.button-box {
+    background-color: #7AA2E3;
+    display: inline-block;
+    padding: 10px 20px; /* adjust padding as needed */
+    border: 2px solid #7AA2E3;
+    border-radius: 5px; /* rounded corners */
+}
+
+.button-box a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.button-box a:hover {
+    color: yellow;
+}
+
+/* ---------------- REG FORM ---------------- */
+.form-container /* same as button tbh */ {
+    background-color: #7AA2E3;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #7AA2E3;
+    border-radius: 5px;
+}
+
+#registrationForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* align form items to the left */
+}
+
+#registrationForm label {
+    color: white;
+    margin-right: 10px;
+}
+
+#registrationForm input,
+#registrationForm button {
+    margin-top: 10px;
+}
+
+/* ---------------- FONTS ---------------- */
+/* Google Fonts https://fonts.google.com/ */
+
+/* poppins */
+.poppins-thin {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+  
+.poppins-extralight {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+  
+.poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+  
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+.poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+  
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+  
+.poppins-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+  
+.poppins-extrabold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+  
+.poppins-black {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+  
+.poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+}
+  
+.poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+}
+  
+.poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+  
+.poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+  
+.poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+  
+.poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+  
+.poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+  
+.poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+}
+  
+.poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+/* work sans */
+.work-sans-regular {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.work-sans-bold {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
