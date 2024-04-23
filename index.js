@@ -13,17 +13,20 @@ import bodyParser from "body-parser";                       // parse body of HTT
 import { Users } from "./database/usersClass.js";           // import the Users class
 import { config } from "./database/db.js";                  // configuration settings
 
+
+/*---------------- express server setup -------------------------------------- */
 // dynamically get path to directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // set main application variable using express
 const app = express();
+//set port for server to run on
 const port = 3000;
-
 //bodyParser can now parse forms
 app.use(bodyParser.urlencoded({extended: true}));
-
 // serve static files from the 'static' directory
 app.use(express.static(__dirname + "/static"));
+
+
 
 /* ---------------- VIEWS ---------------- */
 // main route; index page
@@ -40,12 +43,11 @@ app.post("/register", (req, res) => {
     const uri = config.mongoURI;                            // retrieve mongoDB URI
     const users = new Users(uri);                           // new instance of Users class
     const {username, password} = req.body;                  // extract user/pass from request body
-    //console.log(username, password);
     users.createUser(username, password);
     res.status(201).json({username, password});             // send 'created' response back to client
 });
 
-// make app listen on a port and print out the url of the running
+// make app listen on a port and print out the url of the running app
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
