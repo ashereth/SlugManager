@@ -42,9 +42,26 @@ app.use(session({
 /* ---------------- VIEWS ---------------- */
 // main route; index page
 app.get("/", (req, res) => {
+    
     //if user is logged in send to homepage otherwise send to register
     if (req.session.isLoggedIn==true) {
-        res.render(__dirname + "/templates/index.ejs");
+    //get the projects of the user
+    // filled projects array with some test projects
+    let projects = [{
+        _id: "1",
+        name: "test project 1",
+        administrator: "acegamer",
+        members: ["ace", "asher", "Gino"],
+        tasks: []
+    },
+    {
+        _id: "2",
+        name: "test project 2",
+        administrator: "Gino",
+        members: ["Gino"],
+        tasks: []
+    }];
+        res.render(__dirname + "/templates/index.ejs", {projects: projects});
     }else{
         res.redirect("/register");
     } 
