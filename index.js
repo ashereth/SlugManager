@@ -44,19 +44,20 @@ app.use(session({
 app.get("/", (req, res) => {
     //if user is logged in send to homepage otherwise send to register
     if (req.session.isLoggedIn==true) {
-        res.render(__dirname + "/templates/index.ejs");
+        res.render(__dirname + "/templates/LoginAndReg.ejs");
     }else{
-        res.redirect("/register");
+        res.redirect("/LoginAndReg");
     } 
 });
 
+
 // register page
-app.get("/register", (req, res) => {
+app.get("/LoginAndReg", (req, res) => {
     //on first time registration error should be false
-    res.render(__dirname + "/templates/register.ejs", {error: false});
+    res.render(__dirname + "/templates/LoginAndReg.ejs", {error: false});
 });
 
-app.post("/register", async (req, res) => {
+app.post("/LoginAndReg", async (req, res) => {
     const uri = config.mongoURI;                            // retrieve mongoDB URI
     const users = new Users(uri);                           // new instance of Users class
     const {username, password} = req.body;                  // extract user/pass from request body    
@@ -70,20 +71,20 @@ app.post("/register", async (req, res) => {
             res.redirect("/login");
         } else {
             //if it wasnt a new user send an error and reload
-            res.render(__dirname + "/templates/register.ejs", { error: "Invalid username or password" });
+            res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "Invalid username or password" });
         }
     } catch (error) {//catch any weird unexpected errors
         console.error("Login error:", error);
-        res.render(__dirname + "/templates/register.ejs", { error: "An error occurred during login. Please try again." });
+        res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "An error occurred during login. Please try again." });
     }
 });
 
 // login page
-app.get("/login", (req, res) => {
+app.get("/LoginAndReg", (req, res) => {
     res.render(__dirname + "/templates/login.ejs");
 });
 
-app.post("/login", async (req, res) => {
+app.post("/LoginAndReg", async (req, res) => {
     const uri = config.mongoURI;
     const users = new Users(uri);
     const { username, password } = req.body;
@@ -98,11 +99,11 @@ app.post("/login", async (req, res) => {
             req.session.username = username;
             res.redirect("/");
         } else {
-            res.render(__dirname + "/templates/login.ejs", { error: "Invalid username or password" });
+            res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "Invalid username or password" });
         }
     } catch (error) {//catch any weird unexpected errors
         console.error("Login error:", error);
-        res.render(__dirname + "/templates/login.ejs", { error: "An error occurred during login. Please try again." });
+        res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "An error occurred during login. Please try again." });
     }
 });
 
