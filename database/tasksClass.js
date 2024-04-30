@@ -48,7 +48,7 @@ export class Tasks {
                 //insert the new task into the collection
                 const result = await collection.insertOne(newTask);
                 //insert the task into the project task list
-                this.projects.addTaskToProject(projectName, taskName);
+                this.projects.addTaskToProject(projectName, newTask);
 
                 //print a success message
                 console.log(`task created for project: ${projectName} successfully.`);
@@ -61,7 +61,7 @@ export class Tasks {
                 await client.close(); // Close the connection
         }
     }
-
+    /*
     //method used for deleting a task
     async deleteTask(projectName, taskName) {
 
@@ -93,6 +93,8 @@ export class Tasks {
             await client.close();
         }
     }
+    */
+    
 }
 
 /*

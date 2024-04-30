@@ -3,7 +3,6 @@ import { MongoClient } from 'mongodb';
 import { config } from "./db.js";
 //library for hashing passwords
 import { createHash } from 'crypto';
-import exp from 'constants';
 
 // function for hashing passwords
 function hash(string) {
@@ -17,7 +16,7 @@ user = {
     _id: auto generated,
     username: should be given,
     password: should be the hash of the given password,
-    projects: an array of project id's related to the user. Initially empty.
+    projects: an array of project objects related to the user. Initially empty.
 }
 -----------------------------------------------------------------------------*/
 
@@ -93,7 +92,7 @@ export class Users {
     }
 
     //Method for adding a project to a user in the database
-    async addProjectToUser(username, projectName) {
+    async addProjectToUser(username, newProject) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -104,7 +103,7 @@ export class Users {
             // Update the user's projects array
             const result = await collection.updateOne(
                 { username: username },
-                { $push: { projects: projectName } }
+                { $push: { projects: newProject } }
             );
 
             console.log(`${result.modifiedCount} document(s) updated`);
@@ -116,8 +115,9 @@ export class Users {
         }
     }
 
-    //Method for removing a task to a user in the database
-    async removeProjectFromUser(username, projectName) {
+    //Method for removing a prject from a user
+    // untested
+    async removeProjectFromUser(username, project) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -128,7 +128,7 @@ export class Users {
             // Update the user's projects array
             const result = await collection.updateOne(
                 { username: username },
-                { $pull: { projects: projectName } }
+                { $pull: { projects: project } }
             );
 
             if (result.modifiedCount === 1) {
@@ -139,6 +139,30 @@ export class Users {
 
         } catch (error) {
             console.error('Error removing project', error);
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }    
+
+    //should return an array of project names related to the user
+    async getUsersProjects(username){
+        const client = new MongoClient(this.uri);
+
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName);
+            const collection = database.collection(this.collectionName);
+
+            // find the user
+            const user = await collection.findOne({ username: username });
+            if (user && user.projects) {
+                return user.projects; // Return the array of project names
+            } else {
+                return []; // Return an empty array if no user or projects are found
+            }
+
+        } catch (error) {
+            console.error('Error getting projects', error);
         } finally {
             await client.close(); // Close the connection
         }

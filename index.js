@@ -51,27 +51,20 @@ function isLoggedIn(req, res, next) {
 /* ---------------- VIEWS ---------------- */
 // main route; index page
 // user must be logged in to access
-app.get("/", isLoggedIn, (req, res) => {
+app.get("/", isLoggedIn, async (req, res) => {
 
     //get the projects of the user
+    try {
+        const uri = config.mongoURI;
+        const users = new Users(uri);
 
-    // filled projects array with some test projects
-    let projects = [{
-        _id: "1",
-        name: "test project 1",
-        administrator: "acegamer",
-        members: ["ace", "asher", "Gino"],
-        tasks: []
-    },
-    {
-        _id: "2",
-        name: "test project 2",
-        administrator: "Gino",
-        members: ["Gino"],
-        tasks: []
-    }];
-    //render homepage
-    res.render(__dirname + "/templates/index.ejs", {projects: projects});
+        let projects = await users.getUsersProjects(req.session.username);
+        // Render homepage with projects
+        res.render(__dirname + "/templates/index.ejs", { projects: projects });
+    } catch (error) {
+        console.error('Failed to get projects:', error);
+        res.status(500).send("An error occurred while retrieving user projects.");
+    }
 });
 
 // register page

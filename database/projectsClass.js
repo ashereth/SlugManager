@@ -10,8 +10,8 @@ project = {
     _id: auto generated,
     name: should be given as projectName (unique),
     administrator: should be given as username,
-    members: initially empty list. members added by administrator
-    tasks: initially empty list. tasks added by administrator
+    members: initially empty list of user objects. members added by administrator
+    tasks: initially empty list. should hold task objects
 }
 -----------------------------------------------------------------------------*/
 
@@ -50,7 +50,7 @@ export class Projects {
                 //insert the new user into the collection
                 const result = await collection.insertOne(newProject);
                 //insert the project name into the current users projects
-                this.users.addProjectToUser(username, projectName);
+                this.users.addProjectToUser(username, newProject);
 
                 //print a success message
                 console.log(`project created for ${newProject.administrator} successfully.`);
@@ -63,9 +63,10 @@ export class Projects {
                 await client.close(); // Close the connection
         }
     }
-
+    
     //method used for deleting a project
-    async deleteProject(username, projectName) {
+    // untested
+    async deleteProject(username, project) {
 
         const client = new MongoClient(this.uri);
 
@@ -78,9 +79,9 @@ export class Projects {
             const collection = database.collection(this.collectionName);
 
             //delete project based on the username and name associated with project
-            const result = await collection.deleteOne({ administrator: username, name: projectName});
+            const result = await collection.deleteOne({ administrator: username, name: project.name});
             //delete the project from the users database
-            this.users.removeProjectFromUser(username, projectName);
+            this.users.removeProjectFromUser(username, project);
             //Check if the project was deleted successfully. deltedCount is a 
             if (result.deletedCount === 1) {
                 console.log(`Project ${projectName} was deleted successfully by ${username}`);
@@ -96,8 +97,8 @@ export class Projects {
         }
     }
 
-    //Method for adding a project to a user in the database
-    async addTaskToProject(projectName, taskName) {
+    //Method for adding a task to a project
+    async addTaskToProject(projectName, task) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -108,7 +109,7 @@ export class Projects {
             // Update the user's projects array
             const result = await collection.updateOne(
                 { name: projectName },
-                { $push: { tasks: taskName } }
+                { $push: { tasks: task } }
             );
 
             console.log(`${result.modifiedCount} document(s) updated`);
@@ -121,7 +122,8 @@ export class Projects {
     }
 
     //Method for removing a task from the project database
-    async removeTaskFromProject(projectName, taskName) {
+    // untested
+    async removeTaskFromProject(projectName, task) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -132,13 +134,13 @@ export class Projects {
             // Update the user's projects array
             const result = await collection.updateOne(
                 { name: projectName},
-                { $pull: { tasks: taskName } }
+                { $pull: { tasks: task } }
             );
 
             if (result.modifiedCount === 1) {
-                console.log(`Task ${taskName} removed from ${projectName}`);
+                console.log(`Task ${task} removed from ${projectName}`);
             } else {
-                console.log(`Task ${taskName} not found under project ${projectName}`)
+                console.log(`Task ${task} not found under project ${projectName}`)
             }
 
         } catch (error) {
@@ -146,13 +148,13 @@ export class Projects {
         } finally {
             await client.close(); // Close the connection
         }
-    }
+    }    
 }
 
 
 //usage example for adding a project
-const uri = config.mongoURI;
-const projects = new Projects(uri);
+//const uri = config.mongoURI;
+//const projects = new Projects(uri);
 
 //await projects.createProject("asher", "test project");
 //await projects.deleteProject("asher", "test project");
