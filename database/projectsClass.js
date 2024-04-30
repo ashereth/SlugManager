@@ -54,7 +54,7 @@ export class Projects {
 
                 //print a success message
                 console.log(`project created for ${newProject.administrator} successfully.`);
-                return result.insertedId;
+                return true;
             }
             
             } catch (error) {//if there was an error print the error
