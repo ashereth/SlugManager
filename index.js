@@ -57,7 +57,7 @@ app.get("/LoginAndReg", (req, res) => {
     res.render(__dirname + "/templates/LoginAndReg.ejs", {error: false});
 });
 
-app.post("/LoginAndReg", async (req, res) => {
+app.post("/register", async (req, res) => {
     const uri = config.mongoURI;                            // retrieve mongoDB URI
     const users = new Users(uri);                           // new instance of Users class
     const {username, password} = req.body;                  // extract user/pass from request body    
@@ -68,7 +68,7 @@ app.post("/LoginAndReg", async (req, res) => {
         let success = await users.createUser(username, password);
         if (success) {
             //if success=true and it was a new user send them to login page
-            res.redirect("/login");
+            res.redirect("/LoginAndReg");
         } else {
             //if it wasnt a new user send an error and reload
             res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "Invalid username or password" });
@@ -81,10 +81,10 @@ app.post("/LoginAndReg", async (req, res) => {
 
 // login page
 app.get("/LoginAndReg", (req, res) => {
-    res.render(__dirname + "/templates/login.ejs");
+    res.render(__dirname + "/templates/LoginAndReg.ejs");
 });
 
-app.post("/LoginAndReg", async (req, res) => {
+app.post("/login", async (req, res) => {
     const uri = config.mongoURI;
     const users = new Users(uri);
     const { username, password } = req.body;
