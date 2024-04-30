@@ -332,3 +332,15 @@ input {
    -webkit-transform: translate3d(0, 0, 0);
    transform: translate3d(0, 0, 0);
 }
+
+/* CSS */
+footer {
+   text-align: center; /* Center-align the text */
+   background-color: #f0f0f0; /* Optional: Add background color */
+   padding: 20px 0; /* Optional: Add padding for better spacing */
+}
+
+.footer-container {
+   max-width: 960px; /* Optional: Limit the maximum width of the footer content */
+   margin: 0 auto; /* Optional: Center-align the container */
+}
