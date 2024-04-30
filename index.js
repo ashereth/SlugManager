@@ -11,6 +11,7 @@ import { dirname } from "path";                             // extract directory
 import { fileURLToPath } from "url";                        // convert a file URL to a file path string
 import bodyParser from "body-parser";                       // parse body of HTTP requests
 import { Users } from "./database/usersClass.js";           // import the Users class
+import { Projects } from "./database/projectsClass.js";     //import projects class
 import { config } from "./database/db.js";                  // configuration settings
 import session from 'express-session';
 import { createHash } from 'crypto';
@@ -38,18 +39,34 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+// Middleware to check if user is logged in
+function isLoggedIn(req, res, next) {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/LoginAndReg');
+    }
+    next();
+}
+
+
 
 /* ---------------- VIEWS ---------------- */
 // main route; index page
-app.get("/", (req, res) => {
-    //if user is logged in send to homepage otherwise send to register
-    if (req.session.isLoggedIn==true) {
-        res.render(__dirname + "/templates/LoginAndReg.ejs");
-    }else{
-        res.redirect("/LoginAndReg");
-    } 
-});
+// user must be logged in to access
+app.get("/", isLoggedIn, async (req, res) => {
 
+    //get the projects of the user
+    try {
+        const uri = config.mongoURI;
+        const users = new Users(uri);
+
+        let projects = await users.getUsersProjects(req.session.username);
+        // Render homepage with projects
+        res.render(__dirname + "/templates/index.ejs", { projects: projects });
+    } catch (error) {
+        console.error('Failed to get projects:', error);
+        res.status(500).send("An error occurred while retrieving user projects.");
+    }
+});
 
 // register page
 app.get("/LoginAndReg", (req, res) => {
@@ -68,7 +85,7 @@ app.post("/register", async (req, res) => {
         let success = await users.createUser(username, password);
         if (success) {
             //if success=true and it was a new user send them to login page
-            res.redirect("/LoginAndReg");
+            res.redirect("/login");
         } else {
             //if it wasnt a new user send an error and reload
             res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "Invalid username or password" });
@@ -80,7 +97,7 @@ app.post("/register", async (req, res) => {
 });
 
 // login page
-app.get("/LoginAndReg", (req, res) => {
+app.get("/login", (req, res) => {
     res.render(__dirname + "/templates/LoginAndReg.ejs");
 });
 
@@ -104,6 +121,31 @@ app.post("/login", async (req, res) => {
     } catch (error) {//catch any weird unexpected errors
         console.error("Login error:", error);
         res.render(__dirname + "/templates/LoginAndReg.ejs", { error: "An error occurred during login. Please try again." });
+    }
+});
+
+//form for making new projects
+// user must be logged in to access
+app.get("/newProject", isLoggedIn, (req, res) => {
+    res.render(__dirname + "/templates/newProject.ejs");
+});
+
+//handles post request for making new projects
+app.post("/newProject", async (req, res) =>{
+    //get the project name from the form
+    const { projectName } = req.body;
+    //get mongodb database
+    const uri = config.mongoURI;
+    const projects = new Projects(uri);
+
+    try {
+        //try to make project
+        let success = await projects.createProject(req.session.username, projectName);
+        //send to homepage
+        res.redirect("/");
+    } catch (error) {//catch any weird unexpected errors and reload page
+        console.error("Project creation error:", error);
+        res.render(__dirname + "/templates/newProject.ejs", { error: "An error occurred during login. Please try again." });
     }
 });
 

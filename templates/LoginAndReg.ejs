@@ -1,3 +1,5 @@
+<!-- LoginAndReg.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
     <div class="cont">
         <div class="form sign-in">
             <h2>Welcome to Slug Manager</h2>
-            <form id="loginForm" action="/login" method="POST"></form>
+            <form id="loginForm" action="/login" method="POST">
                 <label>
                     <span>Username</span>
                     <input type="username" id="username" name="username" required />
@@ -22,8 +24,7 @@
                     <span>Password</span>
                     <input type="password" id="password" name="password" required />
                 </label>
-                    <button type="button" class="submit">Sign In</button>
-                <!-- <button type="button">Login</button> -->
+                <button type="submit" class="submit">Sign In</button>
             </form>
         </div>
         <div class="sub-cont">
@@ -41,8 +42,7 @@
             </div>
             <div class="form sign-up">
                 <h2>Create A New Account</h2>
-                <form id="registrationForm" action="/register" method="POST"></form>
-
+                <form id="registrationForm" action="/register" method="POST">
                     <label>
                         <span>Username</span>
                         <input type="username" id="username" name="username" required />
@@ -51,8 +51,7 @@
                         <span>Password</span>
                         <input type="password" id="password" name="password" required />
                     </label>
-                        <button type="button" class="submit">Sign Up</button>
-                    <!-- <button type="submit">Register</button> -->
+                    <button type="submit" class="submit">Sign Up</button>
                 </form>
             </div>
         </div>
