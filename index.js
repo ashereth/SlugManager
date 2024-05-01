@@ -154,6 +154,39 @@ app.post("/newProject", async (req, res) =>{
     }
 });
 
+
+
+//form for project page
+// user must be logged in to access
+app.get("/projects/:id", isLoggedIn, async (req, res) => {
+    const id = req.params.id;
+    //get the projects of the user
+    try {
+        const uri = config.mongoURI;
+        const users = new Users(uri);
+        let projects = await users.getUsersProjects(req.session.username);
+        // Render homepage with projects
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, id });
+    } catch (error) {
+        console.error('Failed to get projects:', error);
+        res.status(500).send("An error occurred while retrieving user projects.");
+    }
+});
+
+//handles post request for displaying projects
+app.post("/projects/:projects", async (req, res) =>{
+    //get the project name from the form
+    const { projectName } = req.body;
+    //get mongodb database
+    const uri = config.mongoURI;
+    const projects = new Projects(uri);
+});
+
+//create a new task
+app.get("/newTask", isLoggedIn, (req, res) => {
+    res.render(__dirname + "/templates/newTask.ejs");
+});
+
 // make app listen on a port and print out the url of the running app
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

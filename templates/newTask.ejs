@@ -1,0 +1,9 @@
+<%- include("./partials/mainPageHeader.ejs") %>
+    <h2>Create a new Task</h2>
+    <form action="/newTask" method="post">
+        <label class="work-sans-regular" for="taskName">Task Name:</label>
+        <input type="name" id="taskName" name="taskName" required>
+        <button type="submit">Create Task</button>
+    </form>
+        
+<%- include("./partials/footer.ejs")  %>

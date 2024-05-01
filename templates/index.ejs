@@ -6,7 +6,9 @@
     <div class="project-list">
         <% projects.forEach(project => { %>
             <div class="project">
-                <h3 class="project-name"><%= project.name %></h3>
+                <a href="/projects/<%= project._id %>">
+                    <h3 class="project-name"><%= project.name %></h3>
+                </a>
                 <p class="project-admin"><strong>Administrator:</strong> <%= project.administrator %></p>
                 <p class="project-tasks"><strong>Tasks:</strong> <%= project.tasks.length %></p>
             </div>
