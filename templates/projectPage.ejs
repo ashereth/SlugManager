@@ -8,8 +8,10 @@
         </div>
     <% }); %>
     <h2>Add a User</h2>
-    <label class="work-sans-regular" for="userName">User Name:</label>
-    <input type="name" id="userName" name="userName" required>
-    <button type="submit">Add User</button>
+    <form method="POST" action="/projects/<%= id %>">
+        <label class="work-sans-regular" for="userName">User Name:</label>
+        <input type="text" id="userName" name="username" required>
+        <button type="submit">Add User</button>
+    </form>
 </div>
 <%- include("./partials/footer.ejs") %>

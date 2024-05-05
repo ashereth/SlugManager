@@ -182,6 +182,32 @@ app.post("/projects/:projects", async (req, res) =>{
     const projects = new Projects(uri);
 });
 
+//handles post request for adding a new user to a project
+//NOT WORKING
+app.post("/projects/:id", async (req, res) =>{
+    // Get the project ID from the request parameters
+    const projectId = req.params.id;
+    
+    // Get the username from the request body
+    const { username } = req.body;
+
+    const uri = config.mongoURI;
+    const projects = new Projects(uri); 
+
+    // Using function from data base for adding user
+    try {
+        // Try to add the user to the project
+        let success = await projects.addProjectToUser(username, projectId);
+        
+        // Redirect to the project page or wherever appropriate
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, id });
+    } catch (error) {
+        // Catch any errors and handle them appropriately
+        console.error("Error adding user to project:", error);
+        res.status(500).send("An error occurred while adding user to project.");
+    }
+});
+
 //create a new task
 app.get("/newTask", isLoggedIn, (req, res) => {
     res.render(__dirname + "/templates/newTask.ejs");
