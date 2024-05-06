@@ -149,6 +149,32 @@ export class Projects {
             await client.close(); // Close the connection
         }
     }    
+
+    
+    //Method for returning a project from just the id
+    async getProject(projectId) {
+        const client = new MongoClient(this.uri);
+
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName);
+            const collection = database.collection(this.collectionName);
+
+            // Find the project with the specified ObjectId
+            const project = await collection.findOne({ _id: ObjectId(projectId) });
+            
+            // Return the project object if found, otherwise return null
+            return project;
+
+        } catch (error) {
+            console.error('Error getting project:', error);
+            return null;
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }
+
+
 }
 
 
