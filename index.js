@@ -198,14 +198,14 @@ app.post("/projects/:id", async (req, res) =>{
         const project = await projects.getProject(projectId);
         
         if (!project) {
-            // If project is not found, send appropriate response
+            // Return message for project not found
             return res.status(404).send("Project not found.");
         }
 
-        // Add the project to the user
+        // Add project to the user
         await projects.users.addProjectToUser(username, project);
 
-        // Redirect to the project page or wherever appropriate
+        // Redirect to the project page after post request
         res.render(__dirname + "/templates/projectPage.ejs", { project });
 
     } catch (error) {
