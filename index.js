@@ -187,20 +187,27 @@ app.post("/projects/:projects", async (req, res) =>{
 app.post("/projects/:id", async (req, res) =>{
     // Get the project ID from the request parameters
     const projectId = req.params.id;
-    
+
     // Get the username from the request body
     const { username } = req.body;
 
-    const uri = config.mongoURI;
-    const projects = new Projects(uri); 
+    const projects = new Projects(); // Initialize Projects class
 
-    // Using function from data base for adding user
     try {
-        // Try to add the user to the project
-        let success = await projects.addProjectToUser(username, projectId);
+        // Get the project based on its ID
+        const project = await projects.getProject(projectId);
         
+        if (!project) {
+            // If project is not found, send appropriate response
+            return res.status(404).send("Project not found.");
+        }
+
+        // Add the project to the user
+        await projects.users.addProjectToUser(username, project);
+
         // Redirect to the project page or wherever appropriate
-        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, id });
+        res.render(__dirname + "/templates/projectPage.ejs", { project });
+
     } catch (error) {
         // Catch any errors and handle them appropriately
         console.error("Error adding user to project:", error);
