@@ -163,8 +163,16 @@ export class Projects {
             // Find the project with the specified ObjectId
             const project = await collection.findOne({ _id: ObjectId(projectId) });
             
-            // Return the project object if found, otherwise return null
-            return project;
+            // Check if the project is found
+            if (project) {
+                // Print the project object with all its values
+                console.log("Project:", project);
+                // Return the project object
+                return project;
+            } else {
+                console.log("Project not found.");
+                return null;
+            }
 
         } catch (error) {
             console.error('Error getting project:', error);
