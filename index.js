@@ -42,7 +42,8 @@ app.use(session({
 // Middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
     if (!req.session.isLoggedIn) {
-        return res.redirect('/LoginAndReg');
+        return res.redirect('/landingPage');
+        // return res.redirect('/LoginAndReg');
     }
     next();
 }
@@ -72,6 +73,14 @@ app.get("/LoginAndReg", (req, res) => {
     //on first time registration error should be false
     res.render(__dirname + "/templates/LoginAndReg.ejs", {error: false});
  });
+
+app.get("/landingPage", (req, res) => {
+    // user will be taken to landing page on first opening website
+    res.render(__dirname + "/templates/landingPage.ejs", {error: false});
+});
+
+// Allow images to be shown
+app.use(express.static('images'));
  
  
  app.post("/register", async (req, res) => {
@@ -185,6 +194,24 @@ app.post("/projects/:projects", async (req, res) =>{
 //create a new task
 app.get("/newTask", isLoggedIn, (req, res) => {
     res.render(__dirname + "/templates/newTask.ejs");
+});
+
+// Logout and be sent to the landing page.
+app.get('/logout', (req, res) => {
+    // Clear any session or authentication token
+    // For example, if using session middleware:
+    req.session.destroy((error) => {
+        if (error) {
+            console.error('Failed to logout:', error);
+            // Handle error appropriately, maybe send an error response
+            return res.status(500).send('Internal Server Error');
+        }
+        //Clear cookies
+        res.clearCookie(session.isLoggedIn);
+        res.clearCookie(session.username);
+        // Redirect to landing page after logout
+        res.redirect('/LoginAndReg');
+    });
 });
 
 // make app listen on a port and print out the url of the running app
