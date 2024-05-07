@@ -6,7 +6,9 @@
     
     <div class="gallery-container">
         <div class="project-gallery-container">
-            <button class="prev-btn">&lt;</button>
+            <div class="prev-btn-container">
+                <button class="prev-btn">&lt;</button>
+            </div>
             
             <div class="project-gallery">
                 <% projects.forEach(project => { %>
@@ -20,7 +22,9 @@
                 <% }); %>
             </div>
 
-            <button class="next-btn">&gt;</button>
+            <div class="next-btn-container">
+                <button class="next-btn">&gt;</button>
+            </div>
         </div>
     </div>
 

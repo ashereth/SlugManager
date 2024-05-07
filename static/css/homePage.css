@@ -158,29 +158,43 @@ footer {
 }
 
 .project:hover {
-    border: 2px solid #ccc;
+    border: 1px solid black;
+}
+
+.prev-btn-container,
+.next-btn-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.prev-btn-container {
+    left: 0;
+}
+
+.next-btn-container {
+    right: 0;
 }
 
 .prev-btn,
 .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: transparent;
     border: none;
     cursor: pointer;
+    color: white;
     font-size: 24px;
+    outline: none;
 }
 
-.prev-btn {
-    left: 0;
-}
-
-.next-btn {
-    right: 0;
-}
-
-/* scrollbar */
+/* scrollbar--currently not on display */
 .project-gallery::-webkit-scrollbar {
     /* width: 5px; */
     display: none;
