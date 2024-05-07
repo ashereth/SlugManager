@@ -166,7 +166,7 @@ app.get("/projects/:name", isLoggedIn, async (req, res) => {
         const users = new Users(uri);
         let projects = await users.getUsersProjects(req.session.username);
         // Render homepage with projects
-        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName });
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName, user: req.session.username });
     } catch (error) {
         console.error('Failed to get projects:', error);
         res.status(500).send("An error occurred while retrieving user projects.");
