@@ -14,7 +14,7 @@ body {
 }
 
 header {
-    background-color: white;
+    background: linear-gradient(#fff49b, #89CFF0);
     position: fixed;
     top: 0;
     left: 0;
@@ -75,14 +75,12 @@ footer {
     color: black;
     text-decoration: none;
     font-size: 16px;
-    /* transition: color 0.3s; add transition effect for smooth color change */
+    transition: color 0.3s; /* add transition effect for smooth color change */
 }
 
-/*
 .nav-links a:hover {
-    color: #6AD4DD;
+    color: white;
 }
-*/
 
 .dropbtn {
     color: black;
@@ -98,7 +96,7 @@ footer {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: white;
     min-width: 160px;
     z-index: 1000;
 }
@@ -111,7 +109,7 @@ footer {
 }
 
 .dropdown-content a:hover {
-    background-color: lightgrey;
+    background-color: black;
 }
   
 /* show the dropdown menu on hover */
