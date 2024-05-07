@@ -1,18 +1,52 @@
 <%- include("./partials/mainPageHeader.ejs") %>
 <!-- <h2 class="work-sans-bold">Homepage</h2> -->
 <div class="center-content">
-    <p class="work-sans-regular">Welcome to the homepage.</p>
-    <div class="homepage-title">Your Projects</div>
-    <div class="project-list">
-        <% projects.forEach(project => { %>
-            <div class="project">
-                <a href="/projects/<%= project._id %>">
-                    <h3 class="project-name"><%= project.name %></h3>
-                </a>
-                <p class="project-admin"><strong>Administrator:</strong> <%= project.administrator %></p>
-                <p class="project-tasks"><strong>Tasks:</strong> <%= project.tasks.length %></p>
+    <h1 class="poppins-medium" style="margin-bottom: 25px;">Welcome back.</h1>
+    <p class="poppins-regular">My Projects</p>
+    
+    <div class="gallery-container">
+        <div class="project-gallery-container">
+            <button class="prev-btn">&lt;</button>
+            
+            <div class="project-gallery">
+                <% projects.forEach(project => { %>
+                    <div class="project">
+                        <a href="/projects/<%= project._id %>">
+                            <h3 class="project-name"><%= project.name %></h3>
+                        </a>
+                        <p class="project-admin"><strong>Administrator:</strong> <%= project.administrator %></p>
+                        <p class="project-tasks"><strong>Tasks:</strong> <%= project.tasks.length %></p>
+                    </div>
+                <% }); %>
             </div>
-        <% }); %>
+
+            <button class="next-btn">&gt;</button>
+        </div>
     </div>
+
+    <p class="poppins-regular">My Tasks</p>
+
 </div>
 <%- include("./partials/footer.ejs") %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const gallery = document.querySelector('.project-gallery');
+
+        prevBtn.addEventListener('click', function() {
+            gallery.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        nextBtn.addEventListener('click', function() {
+            gallery.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>

@@ -1,15 +1,19 @@
 <%- include("./partials/projectPageHeader.ejs") %>
-<div class="project-list">
-    <% projects.forEach(project => { %>
-        <div class="project">
+<div class="center-content">
+    <div class="project-list">
+        <% projects.forEach(project => { %>
             <% if(id == project._id){ %>
                 <h1 class="project-name"><%= project.name %></h1>
-              <% } %>
+            <% } %>
+        <% }); %>
+        <div class="add-user-form-container">
+            <div class="add-user-form">
+                <h2>Add a User</h2>
+                <label class="work-sans-regular" for="userName">User Name:</label>
+                <input type="name" id="userName" name="userName" required>
+                <button type="submit">Add User</button>
+            </div>
         </div>
-    <% }); %>
-    <h2>Add a User</h2>
-    <label class="work-sans-regular" for="userName">User Name:</label>
-    <input type="name" id="userName" name="userName" required>
-    <button type="submit">Add User</button>
+    </div>
 </div>
 <%- include("./partials/footer.ejs") %>

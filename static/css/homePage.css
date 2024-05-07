@@ -6,7 +6,7 @@
 
 body {
     background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: black;
     display: flex;
     flex-direction: column;
@@ -75,12 +75,170 @@ footer {
     color: black;
     text-decoration: none;
     font-size: 16px;
-    transition: color 0.3s; /* add transition effect for smooth color change */
+    /* transition: color 0.3s; add transition effect for smooth color change */
 }
 
+/*
 .nav-links a:hover {
-    color: #6AD4DD; /* change color when hovered over */
+    color: #6AD4DD;
 }
+*/
+
+.dropbtn {
+    color: black;
+    text-decoration: none;
+}
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+/* dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    z-index: 1000;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: lightgrey;
+}
+  
+/* show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* ---------------- GALLERY ---------------- */
+.gallery-container {
+    margin: 0 200px;
+    margin-bottom: 50px;
+}
+
+.project-gallery-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.project-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+.project-gallery a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.project {
+    flex: 0 0 auto;
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    scroll-snap-align: start;
+}
+
+.project:hover {
+    border: 2px solid #ccc;
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+/* scrollbar */
+.project-gallery::-webkit-scrollbar {
+    /* width: 5px; */
+    display: none;
+}
+
+.project-gallery::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.project-gallery::-webkit-scrollbar-thumb {
+    background: #7AA2E3;
+    border-radius: 5px;
+}
+
+
+/* ---------------- ADD USER FORM ---------------- */
+.add-user-form-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.add-user-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.add-user-form h2 {
+    margin-bottom: 10px;
+}
+
+.add-user-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-user-form input[type="name"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-user-form button {
+    background-color: #7AA2E3;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-user-form button:hover {
+    background-color: yellow;
+}
+
 
 /* ---------------- BUTTONS ---------------- */
 .button-box {
@@ -99,31 +257,6 @@ footer {
 
 .button-box a:hover {
     color: yellow;
-}
-
-/* ---------------- REG FORM ---------------- */
-.form-container /* same as button tbh */ {
-    background-color: #7AA2E3;
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #7AA2E3;
-    border-radius: 5px;
-}
-
-#registrationForm {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* align form items to the left */
-}
-
-#registrationForm label {
-    color: white;
-    margin-right: 10px;
-}
-
-#registrationForm input,
-#registrationForm button {
-    margin-top: 10px;
 }
 
 /* ---------------- FONTS ---------------- */
