@@ -167,28 +167,53 @@ app.post("/newProject", async (req, res) =>{
 
 //form for project page
 // user must be logged in to access
-app.get("/projects/:id", isLoggedIn, async (req, res) => {
-    const id = req.params.id;
+app.get("/projects/:name", isLoggedIn, async (req, res) => {
+    const projectName = req.params.name;
     //get the projects of the user
     try {
         const uri = config.mongoURI;
         const users = new Users(uri);
         let projects = await users.getUsersProjects(req.session.username);
         // Render homepage with projects
-        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, id });
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName, user: req.session.username });
     } catch (error) {
         console.error('Failed to get projects:', error);
         res.status(500).send("An error occurred while retrieving user projects.");
     }
 });
 
-//handles post request for displaying projects
-app.post("/projects/:projects", async (req, res) =>{
-    //get the project name from the form
-    const { projectName } = req.body;
-    //get mongodb database
-    const uri = config.mongoURI;
-    const projects = new Projects(uri);
+//handles post request for adding a new user to a project
+//NOT WORKING
+app.post("/projects/:name", async (req, res) =>{
+    // Get the project ID from the request parameters
+    const projectName = req.params.name;
+    console.log('project name = '+ projectName);
+
+    // Get the username from the request body
+    const { username } = req.body;
+
+    const projects = new Projects(); // Initialize Projects class
+
+    try {
+        // Get the project based on its ID
+        const project = await projects.getProject(projectName);
+        
+        if (!project) {
+            // Return message for project not found
+            return res.status(404).send("Project not found.");
+        }
+
+        // Add project to the user
+        await projects.users.addProjectToUser(username, project);
+
+        // Redirect to the project page after post request
+        res.redirect("/");
+
+    } catch (error) {
+        // Catch any errors and handle them appropriately
+        console.error("Error adding user to project:", error);
+        res.status(500).send("An error occurred while adding user to project.");
+    }
 });
 
 //create a new task

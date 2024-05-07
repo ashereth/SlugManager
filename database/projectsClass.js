@@ -149,6 +149,40 @@ export class Projects {
             await client.close(); // Close the connection
         }
     }    
+
+    
+    //Method for returning a project from just the name
+    async getProject(projectName) {
+        const client = new MongoClient(this.uri);
+
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName);
+            const collection = database.collection(this.collectionName);
+
+            // Find the project with the specified ObjectId
+            const project = await collection.findOne({ name: projectName });
+            
+            // Check if the project is found
+            if (project) {
+                // Print the project object with all its values
+                console.log("Project:", project);
+                // Return the project object
+                return project;
+            } else {
+                console.log("Project not found.");
+                return null;
+            }
+
+        } catch (error) {
+            console.error('Error getting project:', error);
+            return null;
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }
+
+
 }
 
 
