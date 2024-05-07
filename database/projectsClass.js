@@ -151,8 +151,8 @@ export class Projects {
     }    
 
     
-    //Method for returning a project from just the id
-    async getProject(projectId) {
+    //Method for returning a project from just the name
+    async getProject(projectName) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -161,7 +161,7 @@ export class Projects {
             const collection = database.collection(this.collectionName);
 
             // Find the project with the specified ObjectId
-            const project = await collection.findOne({ _id: ObjectId(projectId) });
+            const project = await collection.findOne({ name: projectName });
             
             // Check if the project is found
             if (project) {

@@ -2,16 +2,17 @@
 <div class="project-list">
     <% projects.forEach(project => { %>
         <div class="project">
-            <% if(id == project._id){ %>
+            <% if(projectName == project.name){ %>
                 <h1 class="project-name"><%= project.name %></h1>
-              <% } %>
+                <h2>Add a User</h2>
+                <form method="POST" action="/projects/<%= project.name %>">
+                    <label class="work-sans-regular" for="userName">User Name:</label>
+                    <input type="text" id="userName" name="username" required>
+                    <button type="submit">Add User</button>
+                </form>
+        <% } %>
         </div>
     <% }); %>
-    <h2>Add a User</h2>
-    <form method="POST" action="/projects/<%= id %>">
-        <label class="work-sans-regular" for="userName">User Name:</label>
-        <input type="text" id="userName" name="username" required>
-        <button type="submit">Add User</button>
-    </form>
+    
 </div>
 <%- include("./partials/footer.ejs") %>
