@@ -3,7 +3,7 @@
     <div class="project-list">
         <% projects.forEach(project => { %>
             
-            <% if(projectName == project.name){ %> <!-- if(projectName == project.name) -->
+            <% if(projectName == project.name){ %>
                 <h1 class="poppins-medium"><%= project.name %></h1>
                 <% if(user == project.administrator) { %>
                     <div class="add-user-form-container">
