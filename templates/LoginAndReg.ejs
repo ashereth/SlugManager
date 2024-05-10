@@ -6,6 +6,12 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- embed Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans&display=swap" rel="stylesheet">"
+
    <title>SlugManager</title>
    <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -15,7 +21,7 @@
    <br>
    <div class="cont">
        <div class="form sign-in">
-           <h2>Welcome to Slug Manager</h2>
+           <h2 class="poppins-medium">Welcome back.</h2>
            <form id="loginForm" action="/login" method="POST">
                <label>
                    <span>Username</span>
@@ -31,10 +37,10 @@
        <div class="sub-cont">
            <div class="img">
                <div class="img__text m--up">
-                   <h3>Not an existing User? Please Sign up!</h3>
+                   <h3 class="poppins-bold">Not an existing user? Please sign up!</h3>
                </div>
                <div class="img__text m--in">
-                   <h3>Existing User, simply sign in.</h3>
+                   <h3 class="poppins-bold">Existing users, sign in here.</h3>
                </div>
                <div class="img__btn">
                    <span class="m--up">Sign Up</span>
@@ -42,7 +48,7 @@
                </div>
            </div>
            <div class="form sign-up">
-               <h2>Create A New Account</h2>
+               <h2 class="poppins-medium">Nice to meet you.</h2>
                <form id="registrationForm" action="/register" method="POST">
                    <label>
                        <span>Username</span>
@@ -62,7 +68,7 @@
    <!-- Footer -->
    <footer>
        <div class="footer-container">
-           <p>© Made for CSE115a: Intro to Software Engineering, Spring 2024</p>
+        <p class="work-sans-regular"><i>© Made for CSE115a: Intro to Software Engineering, Spring 2024</i></p>
        </div>
    </footer>
 
