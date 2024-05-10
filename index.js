@@ -42,7 +42,8 @@ app.use(session({
 // Middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
     if (!req.session.isLoggedIn) {
-        return res.redirect('/LoginAndReg');
+        return res.redirect('/landingPage');
+        // return res.redirect('/LoginAndReg');
     }
     next();
 }
@@ -72,6 +73,14 @@ app.get("/LoginAndReg", (req, res) => {
     //on first time registration error should be false
     res.render(__dirname + "/templates/LoginAndReg.ejs", {error: false});
  });
+
+app.get("/landingPage", (req, res) => {
+    // user will be taken to landing page on first opening website
+    res.render(__dirname + "/templates/landingPage.ejs", {error: false});
+});
+
+// Allow images to be shown
+app.use(express.static('images'));
  
  
  app.post("/register", async (req, res) => {
@@ -158,33 +167,76 @@ app.post("/newProject", async (req, res) =>{
 
 //form for project page
 // user must be logged in to access
-app.get("/projects/:id", isLoggedIn, async (req, res) => {
-    const id = req.params.id;
+app.get("/projects/:name", isLoggedIn, async (req, res) => {
+    const projectName = req.params.name;
     //get the projects of the user
     try {
         const uri = config.mongoURI;
         const users = new Users(uri);
         let projects = await users.getUsersProjects(req.session.username);
         // Render homepage with projects
-        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, id });
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName, user: req.session.username });
     } catch (error) {
         console.error('Failed to get projects:', error);
         res.status(500).send("An error occurred while retrieving user projects.");
     }
 });
 
-//handles post request for displaying projects
-app.post("/projects/:projects", async (req, res) =>{
-    //get the project name from the form
-    const { projectName } = req.body;
-    //get mongodb database
-    const uri = config.mongoURI;
-    const projects = new Projects(uri);
+//handles post request for adding a new user to a project
+//NOT WORKING
+app.post("/projects/:name", async (req, res) =>{
+    // Get the project ID from the request parameters
+    const projectName = req.params.name;
+    console.log('project name = '+ projectName);
+
+    // Get the username from the request body
+    const { username } = req.body;
+
+    const projects = new Projects(); // Initialize Projects class
+
+    try {
+        // Get the project based on its ID
+        const project = await projects.getProject(projectName);
+        
+        if (!project) {
+            // Return message for project not found
+            return res.status(404).send("Project not found.");
+        }
+
+        // Add project to the user
+        await projects.users.addProjectToUser(username, project);
+
+        // Redirect to the project page after post request
+        res.redirect("/");
+
+    } catch (error) {
+        // Catch any errors and handle them appropriately
+        console.error("Error adding user to project:", error);
+        res.status(500).send("An error occurred while adding user to project.");
+    }
 });
 
 //create a new task
 app.get("/newTask", isLoggedIn, (req, res) => {
     res.render(__dirname + "/templates/newTask.ejs");
+});
+
+// Logout and be sent to the landing page.
+app.get('/logout', (req, res) => {
+    // Clear any session or authentication token
+    // For example, if using session middleware:
+    req.session.destroy((error) => {
+        if (error) {
+            console.error('Failed to logout:', error);
+            // Handle error appropriately, maybe send an error response
+            return res.status(500).send('Internal Server Error');
+        }
+        //Clear cookies
+        res.clearCookie(session.isLoggedIn);
+        res.clearCookie(session.username);
+        // Redirect to landing page after logout
+        res.redirect('/LoginAndReg');
+    });
 });
 
 // make app listen on a port and print out the url of the running app
