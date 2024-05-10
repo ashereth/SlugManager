@@ -16,7 +16,7 @@ body {
 }
 
 header {
-    background: linear-gradient(#fff49b, #89CFF0); /* Note to self (Mia 5/10): change to white when on landing page */ 
+    background: linear-gradient(to right,#fff49b, #89CFF0);
     position: fixed;
     top: 0;
     left: 0;
@@ -31,7 +31,7 @@ header {
 footer {
     background-color: white;
     margin-top: auto; /* push to the bottom */
-    width: 100%; /* make the footer full width */
+    width: 100%;
     padding: 20px 0;
     text-align: center;
 }
@@ -42,7 +42,7 @@ footer {
 }
 
 .logo:hover{
-    color: yellow;
+    color: #FDE74C;
 }
 
 .container {
@@ -240,7 +240,7 @@ footer {
 }
 
 .add-user-form button:hover {
-    background-color: yellow;
+    background-color: #FDE74C;
 }
 
 
@@ -260,7 +260,7 @@ footer {
 }
 
 .button-box a:hover {
-    color: yellow;
+    color: #FDE74C;
 }
 
 /* ---------------- FONTS ---------------- */
