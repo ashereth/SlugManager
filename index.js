@@ -187,10 +187,9 @@ app.get("/projects/:name", isLoggedIn, async (req, res) => {
 app.post("/projects/:name", async (req, res) =>{
     // Get the project name from the request parameters
     const projectName = req.params.name;
-    console.log('project name = '+ projectName);
 
     // Get the username from the request body
-    const { username } = req.body;
+    const username = req.body.userName;
 
     const projects = new Projects(); // Initialize Projects class
 
