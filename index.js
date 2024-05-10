@@ -185,7 +185,7 @@ app.get("/projects/:name", isLoggedIn, async (req, res) => {
 //handles post request for adding a new user to a project
 //NOT WORKING
 app.post("/projects/:name", async (req, res) =>{
-    // Get the project ID from the request parameters
+    // Get the project name from the request parameters
     const projectName = req.params.name;
     console.log('project name = '+ projectName);
 
