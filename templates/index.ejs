@@ -1,8 +1,16 @@
 <%- include("./partials/mainPageHeader.ejs") %>
 <!-- <h2 class="work-sans-bold">Homepage</h2> -->
 <div class="center-content">
-    <h1 class="poppins-medium" style="margin-bottom: 25px;">Welcome back.</h1>
-    <p class="poppins-regular">My Projects</p>
+    <h1 class="poppins-medium" style="margin-bottom: 25px;">Hello.</h1>
+    
+    <!--
+        PROPOSE (Mia): intended to show most recently visited projects for convenience
+        * separate from "view all" (a page that could include a search bar and other filters)
+
+        As of 5/10, shows all projects created by user. If proposal rejected, I could
+        dissolve "view all" into this page
+    -->
+    <p class="poppins-regular">Recent projects</p>
     
     <div class="gallery-container">
         <div class="project-gallery-container">
@@ -27,6 +35,14 @@
             </div>
         </div>
     </div>
+
+
+    <!--
+         PROPOSE (Mia): show quick list of tasks that have assigned due dates
+         within the next two weeks?
+
+        refer to Jira (Worked on; Viewed; Assigned to me; Starred) and Notion (My tasks)
+    -->
 
 </div>
 <%- include("./partials/footer.ejs") %>
