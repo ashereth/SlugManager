@@ -49,14 +49,14 @@ export class Users {
             //Check for existing user
             const existingUser = await collection.findOne({ username: username });
             if (existingUser) {
-                console.log(`User ${username} already exists. Please login`);
+                //console.log(`User ${username} already exists. Please login`);
                 return false;
             }
 
             //insert the new user into the collection
             const result = await collection.insertOne(newUser);
             //print a success message
-            console.log(`User ${username} created successfully.`);
+            //console.log(`User ${username} created successfully.`);
             return true; // Return the ID of the inserted document
         } catch (error) {//if there was an error print the error
             console.error('Error creating user:', error);
@@ -78,7 +78,7 @@ export class Users {
             //Check for existing user
             const user = await collection.findOne({ username: username, password: password });
             if (user) {
-                console.log(`User ${user.username} logged in successfully with password ${user.password}`);
+                //console.log(`User ${user.username} logged in successfully with password ${user.password}`);
                 return true;
             } else {
                 console.log('Invalid username or password. Try again.');
