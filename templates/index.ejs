@@ -2,36 +2,19 @@
 <!-- <h2 class="work-sans-bold">Homepage</h2> -->
 <div class="center-content">
     <h1 class="poppins-medium" style="margin-bottom: 25px;">Hello.</h1>
-    
-    <!--
-        PROPOSE (Mia): intended to show most recently visited projects for convenience
-        * separate from "view all" (a page that could include a search bar and other filters)
-
-        As of 5/10, shows all projects created by user. If proposal rejected, I could
-        dissolve "view all" into this page
-    -->
-    <p class="poppins-regular">Recent projects</p>
+    <p class="poppins-regular">All projects</p>
     
     <div class="gallery-container">
         <div class="project-gallery-container">
-            <div class="prev-btn-container">
-                <button class="prev-btn">&lt;</button>
-            </div>
-            
             <div class="project-gallery">
                 <% projects.forEach(project => { %>
                     <div class="project">
                         <a href="/projects/<%= project.name %>">
                             <h3 class="project-name"><%= project.name %></h3>
                         </a>
-                        <p class="project-admin"><strong>Administrator:</strong> <%= project.administrator %></p>
-                        <p class="project-tasks"><strong>Tasks:</strong> <%= project.tasks.length %></p>
+                        <p class="project-admin"><strong>Admin:</strong> <%= project.administrator %></p>
                     </div>
                 <% }); %>
-            </div>
-
-            <div class="next-btn-container">
-                <button class="next-btn">&gt;</button>
             </div>
         </div>
     </div>
