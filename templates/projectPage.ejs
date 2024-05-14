@@ -7,7 +7,7 @@
                 <h1 class="poppins-medium"><%= project.name %></h1>
                 <% if(user == project.administrator) { %>
                     <div class="add-user-form-container">
-                        
+
                         <!-- PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? -->
                         <!-- Form to add collaborators -->
                         <div class="add-user-form">
@@ -21,14 +21,10 @@
 
                         <!-- Form to add a new task -->
                         <div class="add-task-form">
-                            <h2 class="poppins-medium">Add New Task.</h2>
-                            <form method="POST" action="/projects/<%= project.name %>/tasks">
+                            <h2 class="poppins-medium">Add A New Task.</h2>
+                            <form method="POST" action="/projects/<%= project.name%>/tasks">
                                 <label class="work-sans-regular" for="taskName">Task Name:</label>
                                 <input type="text" id="taskName" name="taskName" required>
-
-                                <label class="work-sans-regular" for="taskDescription">Task Description:</label>
-                                <textarea id="taskDescription" name="taskDescription" required></textarea>
-                                
                                 <button type="submit">Add Task</button>
                             </form>
                         </div>

@@ -11,6 +11,7 @@ import { dirname } from "path";                             // extract directory
 import { fileURLToPath } from "url";                        // convert a file URL to a file path string
 import bodyParser from "body-parser";                       // parse body of HTTP requests
 import { Users } from "./database/usersClass.js";           // import the Users class
+import { Tasks } from "./database/tasksClass.js";           // import the Tasks class
 import { Projects } from "./database/projectsClass.js";     //import projects class
 import { config } from "./database/db.js";                  // configuration settings
 import session from 'express-session';
@@ -184,6 +185,10 @@ app.get("/projects/:name", isLoggedIn, async (req, res) => {
 
 //handles post request for adding a new user to a project
 app.post("/projects/:name", async (req, res) =>{
+
+    //testing
+    console.log("In add user Request");
+
     // Get the project name from the request parameters
     const projectName = req.params.name;
 
@@ -213,6 +218,52 @@ app.post("/projects/:name", async (req, res) =>{
         res.status(500).send("An error occurred while adding user to project.");
     }
 });
+
+
+// Handles post request for creating a new task
+app.post("/projects/:name/tasks", async (req, res) => {
+    //testing
+    console.log("In task Request");
+
+    // Get the project name from the request parameters
+    const projectName = req.params.name;
+
+    // Get the task name from the request body
+    const taskName = req.body.taskName;
+
+    // Log the project name and task name to the console
+    console.log(`Project Name: ${projectName}`);
+    console.log(`Task Name: ${taskName}`);
+
+    // Check if taskName is provided
+    if (!taskName) {
+        return res.status(400).send("Task name is required.");
+    }
+    const projects = new Projects();
+    const tasks = new Tasks(); // Initialize Projects class
+
+    try {
+        const project = await projects.getProject(projectName);
+
+        if (!project) {
+            // Return message for project not found
+            return res.status(404).send("Project not found.");
+        }
+
+        // Create new task under project
+        await tasks.createTask(project, taskName);
+
+        // Redirect to the project page after post request
+        res.redirect(`/projects/${projectName}`);
+
+    } catch (error) {
+        // Catch any errors and handle them appropriately
+        console.error("Error creating new task:", error);
+        res.status(500).send("An error occurred while creating new task.");
+    }
+});
+
+
 
 //create a new task
 app.get("/newTask", isLoggedIn, (req, res) => {
