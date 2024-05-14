@@ -92,7 +92,7 @@ export class Users {
     }
 
     //Method for adding a project to a user in the database
-    async addProjectToUser(username, newProject) {
+    async addProjectToUser(username, projectName) {
         const client = new MongoClient(this.uri);
 
         try {
@@ -100,10 +100,20 @@ export class Users {
             const database = client.db(this.dbName);
             const collection = database.collection(this.collectionName);
 
+            //dont add projects if its already added to that user
+            const query = {
+                username: username,
+                projects: projectName
+            };
+            const exists = await collection.findOne(query);
+            if (exists) {
+                console.log("user is already a part of that project");
+                return false;
+            }
             // Update the user's projects array
             const result = await collection.updateOne(
                 { username: username },
-                { $push: { projects: newProject } }
+                { $push: { projects: projectName } }
             );
 
             console.log(`${result.modifiedCount} document(s) updated`);
@@ -113,36 +123,7 @@ export class Users {
         } finally {
             await client.close(); // Close the connection
         }
-    }
-
-    //Method for removing a prject from a user
-    // untested
-    async removeProjectFromUser(username, project) {
-        const client = new MongoClient(this.uri);
-
-        try {
-            await client.connect(); // Connect to MongoDB
-            const database = client.db(this.dbName);
-            const collection = database.collection(this.collectionName);
-
-            // Update the user's projects array
-            const result = await collection.updateOne(
-                { username: username },
-                { $pull: { projects: project } }
-            );
-
-            if (result.modifiedCount === 1) {
-                console.log('Project ${projectName} removed by user ${username}');
-            } else {
-                console.log('Project ${projectName} not found under user ${username} ')
-            }
-
-        } catch (error) {
-            console.error('Error removing project', error);
-        } finally {
-            await client.close(); // Close the connection
-        }
-    }    
+    }  
 
     //should return an array of project names related to the user
     async getUsersProjects(username){
@@ -155,7 +136,9 @@ export class Users {
 
             // find the user
             const user = await collection.findOne({ username: username });
+            
             if (user && user.projects) {
+                //console.log('users projects = '+user.projects);
                 return user.projects; // Return the array of project names
             } else {
                 return []; // Return an empty array if no user or projects are found
