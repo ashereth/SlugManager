@@ -116,7 +116,7 @@ export class Users {
                 { $push: { projects: projectName } }
             );
 
-            console.log(`${result.modifiedCount} document(s) updated`);
+            //console.log(`${result.modifiedCount} document(s) updated`);
 
         } catch (error) {
             console.error('Error adding project to user:', error);

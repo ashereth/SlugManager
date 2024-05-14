@@ -24,13 +24,15 @@ function hash(string) {
 //function to get all project objects related to a user 
 // returns an array of project objects
 async function getProjectObjectsForUser(username){
+        //connect to all needed databases
         const uri = config.mongoURI;
         const users = new Users(uri);
         const projectDb = new Projects(uri);
 
+        //this returns an array of project names
         let projectNames = await users.getUsersProjects(username);
 
-        // Retrieve all projects asynchronously
+        // Retrieve all project objects asynchronously using the project names
         let projects = await Promise.all(projectNames.map(projectName =>
             projectDb.getProject(projectName)
         ));
@@ -74,8 +76,9 @@ function isLoggedIn(req, res, next) {
 // user must be logged in to access
 app.get("/", isLoggedIn, async (req, res) => {
 
-    //get the projects of the user
+    
     try {
+        //get the projects of the user
         let projects = await getProjectObjectsForUser(req.session.username);
         //console.log(projects);
         // Render homepage with projects
@@ -135,7 +138,6 @@ app.use(express.static('images'));
     const users = new Users(uri);
     const { username, password } = req.body;
  
- 
     try {
         // try to login, must use await to ensure the function finishes returning before doing other stuff
         let success = await users.login(username, hash(password));  // Assuming hash is a function you've defined elsewhere
@@ -155,7 +157,6 @@ app.use(express.static('images'));
  });
  
  
-
 //form for making new projects
 // user must be logged in to access
 app.get("/newProject", isLoggedIn, (req, res) => {
@@ -180,7 +181,6 @@ app.post("/newProject", async (req, res) =>{
         res.render(__dirname + "/templates/newProject.ejs", { error: "An error occurred during login. Please try again." });
     }
 });
-
 
 
 //form for project page
