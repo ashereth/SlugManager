@@ -109,6 +109,37 @@ export class Projects {
         }
     }
 
+        //Method for adding a project to a user in the database
+        async addTaskToProject(projectName, taskName) {
+            const client = new MongoClient(this.uri);
+    
+            try {
+                await client.connect(); // Connect to MongoDB
+                const database = client.db(this.dbName);
+                const collection = database.collection(this.collectionName);
+    
+                //dont add projects if its already added to that user
+                const query = {
+                    name: projectName,
+                    tasks: taskName
+                };
+
+
+                // Update the user's projects array
+                const result = await collection.updateOne(
+                    { name: projectName },
+                    { $push: { tasks: taskName } }
+                );
+    
+    
+            } catch (error) {
+                console.error('Error adding task to project:', error);
+            } finally {
+                await client.close(); // Close the connection
+            }
+        }  
+
+
 }
 
 
