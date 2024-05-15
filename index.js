@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";                        // convert a file UR
 import bodyParser from "body-parser";                       // parse body of HTTP requests
 import { Users } from "./database/usersClass.js";           // import the Users class
 import { Projects } from "./database/projectsClass.js";     //import projects class
+import { Tasks } from "./database/tasksClass.js";
 import { config } from "./database/db.js";                  // configuration settings
 import session from 'express-session';
 import { createHash } from 'crypto';
@@ -219,6 +220,33 @@ app.post("/projects/:name", async (req, res) =>{
         // Catch any errors and handle them appropriately
         console.error("Error adding user to project:", error);
         res.status(500).send("An error occurred while adding user to project.");
+    }
+});
+
+//handles post request for adding a new task to a project
+app.post("/projects/:name/tasks", async (req, res) =>{
+    // Get the project name from the request parameters
+    const projectName = req.params.name;
+    // Get the task name from the request body
+    const taskname = req.body.taskName;
+    const uri = config.mongoURI;
+    const projects = new Projects(uri); // Initialize Projects class
+    const tasks = new Tasks();
+
+    try {
+        //Add task to database
+        await tasks.createTask(projectName, taskname);
+
+        //Function for adding task to project
+        await tasks.projects.addTaskToProject(projectName, taskname);
+
+        // Redirect to the project page after post request
+        res.redirect("/");
+
+    } catch (error) {
+        // Catch any errors and handle them appropriately
+        console.error("Error adding task to project:", error);
+        res.status(500).send("An error occurred while adding task to project.");
     }
 });
 
