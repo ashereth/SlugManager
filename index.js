@@ -223,18 +223,18 @@ app.post("/projects/:name", async (req, res) =>{
     }
 });
 
-//handles post request for adding a new user to a project
+//handles post request for adding a new task to a project
 app.post("/projects/:name/tasks", async (req, res) =>{
     // Get the project name from the request parameters
     const projectName = req.params.name;
-    // Get the username from the request body
+    // Get the task name from the request body
     const taskname = req.body.taskName;
     const uri = config.mongoURI;
     const projects = new Projects(uri); // Initialize Projects class
     const tasks = new Tasks();
 
     try {
-        // Add task to database
+        //Add task to database
         await tasks.createTask(projectName, taskname);
 
         //Function for adding task to project
