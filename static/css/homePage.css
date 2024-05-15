@@ -49,6 +49,28 @@ footer {
     margin-top: 70px;
 }
 
+.flex-container {
+    display: flex;
+}
+
+.righttop-content {
+    flex: 1;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.rightmiddle-content {
+    flex: 1;
+    text-align: right;
+    margin-top: 50px;
+}
+
+.left-content {
+    flex: 1;
+    text-align: left;
+    margin-top: 10px;
+}
+
 .center-content {
     text-align: center;
     margin-top: 20px;
@@ -250,7 +272,6 @@ footer {
 .add-user-form button:hover {
     background-color: #FDE74C;
 }
-
 
 /* ---------------- BUTTONS ---------------- */
 .button-box {

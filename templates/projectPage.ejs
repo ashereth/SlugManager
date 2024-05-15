@@ -1,39 +1,102 @@
 <%- include("./partials/projectPageHeader.ejs") %>
-<div class="center-content">
-    <div class="project-list">
-        <% projects.forEach(project => { %>
-            
-            <% if(projectName == project.name){ %>
-                <h1 class="poppins-medium"><%= project.name %></h1>
-                <% if(user == project.administrator) { %>
-                    <div class="add-user-form-container">
+<div class="flex-container">
+    <div class="left-content">
+        <div class="project-list">
+            <% projects.forEach(project => { %>
+                
+                <% if(projectName == project.name){ %>
+                    <h1 class="poppins-medium"><%= project.name %></h1>
+                    <% if(user == project.administrator) { %>
+                        <!-- <div class="add-user-form-container">
 
-                        <!-- PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? -->
-                        <!-- Form to add collaborators -->
-                        <div class="add-user-form">
-                            <h2 class="poppins-medium">Add collaborators.</h2>
-                            <form method="POST" action="/projects/<%= project.name %>">
-                                <label class="work-sans-regular" for="userName">User Name:</label>
-                                <input type="name" id="userName" name="userName" required>
-                                <button type="submit">Send Invite</button>
-                            </form>
+                            PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? 
+                            Form to add collaborators 
+                            <div class="add-user-form">
+                                <h2 class="poppins-medium">Add collaborators.</h2> 
+                                <form method="POST" action="/projects/<%= project.name %>">
+                                    <label class="work-sans-regular" for="userName">Add User by Username:</label>
+                                    <input type="name" id="userName" name="userName" required>
+                                    <button type="submit">Send Invite</button>
+                                </form>
+                            </div> -->
+
+                        <div class="righttop-content">                        
+                            <div class="project-list">
+                                <div class="add-user-form-container">
+                                    <!-- PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? -->
+                                    <!-- Form to add collaborators -->
+                                    <div class="add-user-form">
+                                        <!-- <h2 class="poppins-medium">Add collaborators.</h2> -->
+                                        <form method="POST" action="/projects/<%= project.name %>">
+                                            <label class="work-sans-regular" for="userName">Add User by Username:</label>
+                                            <input type="name" id="userName" name="userName" required>
+                                            <button type="submit">Send Invite</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Form to add a new task -->
-                        <div class="add-task-form">
-                            <h2 class="poppins-medium">Add A New Task.</h2>
-                            <form method="POST" action="/projects/<%= project.name%>/tasks">
-                                <label class="work-sans-regular" for="taskName">Task Name:</label>
-                                <input type="text" id="taskName" name="taskName" required>
-                                <button type="submit">Add Task</button>
-                            </form>
-                        </div>
+                        <div class="rightmiddle-content">
+                            <div class="project-list">
+                                                    
+                                <h1 class="poppins-medium"><%= project.name %></h1>
+                                    <div class="add-user-form-container">                       
+                                        <!-- Form to add a new task -->
+                                        <div class="add-task-form">
+                                            <h2 class="poppins-medium">New Task.</h2>
+                                            <form method="POST" action="/projects/<%= project.name%>/tasks">
+                                                <label class="work-sans-regular" for="taskName">Task Name</label>
+                                                <input type="text" id="taskName" name="taskName" required>
+                                                <label class="work-sans-regular" for="taskName">Description</label>
+                                                <input type="text" id="description" name="description" required>
+                                                <button type="submit">Create</button>
+                                            </form>
+                                        </div>
 
-                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    <% } %>
                 <% } %>
-            <% } %>
+                
+            <% }); %>
+
+    <div class="left-content">
+        <style>
+            .task-buttons-incomplete {
+                background-color: red;
+            }
             
-        <% }); %>
+            .task-buttons-complete {
+                background-color: green;
+            }
+
+            
+        </style>
+        <h1>To Do</h1>
+        <ul id="taskList" class="task-list">
+            <% tasks.forEach(task => { %>
+                <% if(!task.completed){ %>
+                    <form action="/tasks/markComplete/<%= projectName%>" method="POST">
+                        <input type="hidden" name="taskName" value="<%= task.name %>">
+                        <button type="submit" class="task-buttons-incomplete"><%= task.name %></button>
+                    </form>
+                    
+                <% } %>
+            <% }); %>
+        <h1>Completed</h1>
+            <% tasks.forEach(task => { %>
+
+                <% if(task.completed){ %>
+                <form action="/tasks/markComplete/<%= projectName%>" method="POST">
+                    <input type="hidden" name="taskName" value="<%= task.name %>">
+                    <button type="submit" class="task-buttons-complete"><%= task.name %></button>
+                </form>
+                    <% } %>
+            <% }); %>
+        </ul>
+
     </div>
 </div>
 <%- include("./partials/footer.ejs") %>

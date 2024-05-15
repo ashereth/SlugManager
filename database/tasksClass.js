@@ -10,6 +10,7 @@ task = {
     _id: auto generated,
     projectname: name of project that its a part of,
     name: should be given as taskName (unique),
+    description: description of task (string),
     completed: boolean false on default
 }
 -----------------------------------------------------------------------------*/
@@ -25,7 +26,7 @@ export class Tasks {
     }
 
     // method used to create a new project based on username
-    async createTask(projectName, taskName) {
+    async createTask(projectName, taskName, description) {
         const client = new MongoClient(this.uri);
         
         try {
@@ -43,6 +44,7 @@ export class Tasks {
                 const newTask = {
                     projectName: projectName,
                     name: taskName,
+                    description: description,
                     completed: false
                 }
                 //insert the new task into the collection
@@ -54,44 +56,72 @@ export class Tasks {
             }
             
             } catch (error) {//if there was an error print the error
-            console.error('Error creating task:', error);
+                console.error('Error creating task:', error);
             }finally {
                 await client.close(); // Close the connection
         }
     }
-    /*
-    //method used for deleting a task
-    async deleteTask(projectName, taskName) {
-
+    
+    //method for getting task object by task name
+    async getTask(taskName){
         const client = new MongoClient(this.uri);
-
         try {
-            // Connect to MongoDB
-            await client.connect(); 
-            //get the database
+            await client.connect();
             const database = client.db(this.dbName);
-            //get the collection
             const collection = database.collection(this.collectionName);
-
-            //delete task based on the project name and task name
-            const result = await collection.deleteOne({projectName: projectName, name: taskName});
-            //delete the task from the projects database
-            this.projects.removeTaskFromProject(projectName, taskName);
-            //Check if the task was deleted successfully. deltedCount is a 
-            if (result.deletedCount === 1) {
-                console.log(`Task ${taskName} was deleted successfully`);
+            const task = await collection.findOne({name: taskName});
+            if (task) {
+                //console.log('task = '+task);
+                return task;
             } else {
-                console.log(`Failed to delete ${taskName}`);
+                console.log(`No task found with the name: ${taskName}`);
+                return null;
             }
         } catch (error) {
-            //error checking
-            console.error('Error deleting task', error);
+            console.error(`Error retrieving task by name (${taskName}):`, error);
         } finally {
-            //close connection
             await client.close();
         }
     }
-    */
+
+    async toggleTaskCompletion(taskName) {
+        const client = new MongoClient(this.uri);
+        try {
+            await client.connect(); // Connect to MongoDB
+            const database = client.db(this.dbName); // Get the database
+            const collection = database.collection(this.collectionName); // Get the collection
+    
+            // Retrieve the current task to check its completion status
+            const task = await collection.findOne({ name: taskName });
+            if (task) {
+                // Toggle the completion status
+                const newCompletionStatus = !task.completed;
+    
+                // Update the task with the new status
+                const updateResult = await collection.updateOne(
+                    { name: taskName },
+                    { $set: { completed: newCompletionStatus } }
+                );
+    
+                if (updateResult.matchedCount === 1) {
+                    //console.log(`Task '${taskName}' completion status updated to '${newCompletionStatus}'.`);
+                    return true;
+                } else {
+                    //console.log(`No update performed for task '${taskName}'.`);
+                    return false;
+                }
+            } else {
+                console.log(`No task found with the name '${taskName}'.`);
+                return false;
+            }
+        } catch (error) {
+            console.error(`Error toggling task completion status (${taskName}):`, error);
+            return false;
+        } finally {
+            await client.close(); // Close the connection
+        }
+    }
+    
     
 }
 
@@ -101,5 +131,4 @@ const uri = config.mongoURI;
 const tasks = new Tasks(uri);
 
 await tasks.createTask("test project", "test task");
-await tasks.deleteTask("test project", "test task");
 */

@@ -44,6 +44,30 @@ async function getProjectObjectsForUser(username){
         return projects;
 }
 
+//function to get all tasks related to the given project
+async function getTaskObjectsForProject(projectName){
+    //connect to all needed databases
+    const uri = config.mongoURI;
+    const projectsDb = new Projects(uri);
+    const tasksDb = new Tasks(uri);
+
+    //get the project object related to the project name
+    let project = await projectsDb.getProject(projectName);
+    //get the array of task names related to the project
+    let taskNames = project.tasks;
+
+    //for each task name get the actual task from the database
+    let tasks = await Promise.all(taskNames.map(taskName =>
+        tasksDb.getTask(taskName)
+    ));
+
+    //filter out any null tasks
+    tasks = tasks.filter(task => task != null);
+
+    //console.log("all tasks for the project="+tasks);
+    return tasks;
+}
+
 /*---------------- express server setup -------------------------------------- */
 // dynamically get path to directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -191,9 +215,11 @@ app.get("/projects/:name", isLoggedIn, async (req, res) => {
     //get the projects of the user
     try {
         let projects = await getProjectObjectsForUser(req.session.username);
+        let tasks = await getTaskObjectsForProject(projectName);
         //console.log("users projects= "+projects);
+        //console.log('tasks again'+tasks);
         // Render homepage with projects
-        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName, user: req.session.username });
+        res.render(__dirname + "/templates/projectPage.ejs", { projects: projects, projectName: projectName, user: req.session.username, tasks: tasks });
     } catch (error) {
         console.error('Failed to get projects:', error);
         res.status(500).send("An error occurred while retrieving user projects.");
@@ -214,7 +240,7 @@ app.post("/projects/:name", async (req, res) =>{
         await projects.users.addProjectToUser(username, projectName);
 
         // Redirect to the project page after post request
-        res.redirect("/");
+        res.redirect(`/projects/${projectName}`);
 
     } catch (error) {
         // Catch any errors and handle them appropriately
@@ -229,19 +255,24 @@ app.post("/projects/:name/tasks", async (req, res) =>{
     const projectName = req.params.name;
     // Get the task name from the request body
     const taskname = req.body.taskName;
+    const taskDescription = req.body.description;
     const uri = config.mongoURI;
     const projects = new Projects(uri); // Initialize Projects class
-    const tasks = new Tasks();
+    const tasks = new Tasks(uri);
 
     try {
         //Add task to database
-        await tasks.createTask(projectName, taskname);
+        let success = await tasks.createTask(projectName, taskname, taskDescription);
 
         //Function for adding task to project
-        await tasks.projects.addTaskToProject(projectName, taskname);
+        //should only add to project if it was a new task name
+        if (success) {
+            await tasks.projects.addTaskToProject(projectName, taskname);
+        }
+        
 
         // Redirect to the project page after post request
-        res.redirect("/");
+        res.redirect(`/projects/${projectName}`);
 
     } catch (error) {
         // Catch any errors and handle them appropriately
@@ -250,10 +281,20 @@ app.post("/projects/:name/tasks", async (req, res) =>{
     }
 });
 
-//create a new task
-app.get("/newTask", isLoggedIn, (req, res) => {
-    res.render(__dirname + "/templates/newTask.ejs");
-});
+
+app.post("/tasks/markComplete/:name", async (req, res)=> {
+    const projectName = req.params.name;
+    const taskName = req.body.taskName;
+    //initialize task class
+    const uri = config.mongoURI;
+    const tasks = new Tasks(uri);
+    //mark task as complete
+    tasks.toggleTaskCompletion(taskName);
+    //send back to project page
+    res.redirect(`/projects/${projectName}`);
+
+})
+
 
 // Logout and be sent to the landing page.
 app.get('/logout', (req, res) => {
