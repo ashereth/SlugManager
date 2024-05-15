@@ -10,7 +10,8 @@ project = {
     _id: auto generated,
     name: should be given as projectName (unique),
     administrator: should be given as username,
-    members: initially empty list. members added by administrator
+    members: initially empty list. members added by administrator,
+    description: description of project (string),
     tasks: initially empty list. tasks added by administrator
 }
 -----------------------------------------------------------------------------*/
@@ -26,7 +27,7 @@ export class Projects {
     }
 
     // method used to create a new project based on username
-    async createProject(username, projectName) {
+    async createProject(username, projectName, description) {
         const client = new MongoClient(this.uri);
         
         try {
@@ -45,6 +46,7 @@ export class Projects {
                     name: projectName,
                     administrator: username,
                     members: [],
+                    description: description,
                     tasks: []
                 }
                 //insert the new user into the collection

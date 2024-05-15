@@ -8,12 +8,15 @@
         <div class="project-gallery-container">
             <div class="project-gallery">
                 <% projects.forEach(project => { %>
-                    <div class="project">
+                    
                         <a href="/projects/<%= project.name %>">
-                            <h3 class="project-name"><%= project.name %></h3>
+                            <div class="project">
+                                <h3 class="project-name"><%= project.name %></h3>
+                                <p><strong>Description:</strong> <%= project.description %></p>
+                                <p class="project-admin"><strong>Admin:</strong> <%= project.administrator %></p>
+                            </div>
                         </a>
-                        <p class="project-admin"><strong>Admin:</strong> <%= project.administrator %></p>
-                    </div>
+                        
                 <% }); %>
             </div>
         </div>

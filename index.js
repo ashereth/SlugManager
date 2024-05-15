@@ -191,14 +191,15 @@ app.get("/newProject", isLoggedIn, (req, res) => {
 //handles post request for making new projects
 app.post("/newProject", async (req, res) =>{
     //get the project name from the form
-    const { projectName } = req.body;
+    const projectName = req.body.projectName;
+    const projectDescription = req.body.description;
     //get mongodb database
     const uri = config.mongoURI;
     const projects = new Projects(uri);
 
     try {
         //try to make project
-        let success = await projects.createProject(req.session.username, projectName);
+        let success = await projects.createProject(req.session.username, projectName, projectDescription);
         //send to homepage
         res.redirect("/");
     } catch (error) {//catch any weird unexpected errors and reload page

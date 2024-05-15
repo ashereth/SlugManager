@@ -1,5 +1,4 @@
 <%- include("./partials/projectPageHeader.ejs") %>
-<div class="flex-container">
     <div class="left-content">
         <div class="project-list">
             <% projects.forEach(project => { %>
@@ -40,7 +39,6 @@
                         <div class="rightmiddle-content">
                             <div class="project-list">
                                                     
-                                <h1 class="poppins-medium"><%= project.name %></h1>
                                     <div class="add-user-form-container">                       
                                         <!-- Form to add a new task -->
                                         <div class="add-task-form">
@@ -48,7 +46,7 @@
                                             <form method="POST" action="/projects/<%= project.name%>/tasks">
                                                 <label class="work-sans-regular" for="taskName">Task Name</label>
                                                 <input type="text" id="taskName" name="taskName" required>
-                                                <label class="work-sans-regular" for="taskName">Description</label>
+                                                <label class="work-sans-regular" for="taskName">Description:</label>
                                                 <input type="text" id="description" name="description" required>
                                                 <button type="submit">Create</button>
                                             </form>
@@ -65,11 +63,29 @@
     <div class="left-content">
         <style>
             .task-buttons-incomplete {
-                background-color: red;
+                background-color: rgb(255, 39, 24);
+                padding: 5px;
+                margin: 5px;
+                border-radius: 10px;
             }
             
             .task-buttons-complete {
-                background-color: green;
+                background-color: rgb(6, 168, 6);
+                padding: 5px;
+                margin: 5px;
+                border-radius: 10px;
+            }
+
+            .task-buttons-incomplete:hover {
+                background-color: rgb(216, 35, 22);
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); /* Shadow appears on hover */
+                cursor: pointer;
+            }
+            
+            .task-buttons-complete:hover {
+                background-color: rgb(5, 141, 5);
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); /* Shadow appears on hover */
+                cursor: pointer;
             }
 
             
@@ -80,7 +96,10 @@
                 <% if(!task.completed){ %>
                     <form action="/tasks/markComplete/<%= projectName%>" method="POST">
                         <input type="hidden" name="taskName" value="<%= task.name %>">
-                        <button type="submit" class="task-buttons-incomplete"><%= task.name %></button>
+                        <button type="submit" class="task-buttons-incomplete">
+                            <h3><%= task.name %></h3>
+                            <p>Description: <%= task.description %></p>
+                        </button>
                     </form>
                     
                 <% } %>
@@ -91,7 +110,10 @@
                 <% if(task.completed){ %>
                 <form action="/tasks/markComplete/<%= projectName%>" method="POST">
                     <input type="hidden" name="taskName" value="<%= task.name %>">
-                    <button type="submit" class="task-buttons-complete"><%= task.name %></button>
+                    <button type="submit" class="task-buttons-complete">
+                        <h3><%= task.name %></h3>
+                            <p>Description: <%= task.description %></p>
+                    </button>
                 </form>
                     <% } %>
             <% }); %>

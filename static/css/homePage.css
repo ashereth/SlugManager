@@ -28,12 +28,20 @@ header {
     z-index: 1000;
 }
 
-footer {
-    background-color: white;
+.footer-solid {
+    background: #89CFF0;
     margin-top: auto; /* push to the bottom */
     width: 100%;
     padding: 20px 0;
     text-align: center;
+}
+
+.footer-gradient {
+    background: linear-gradient(to right,#fff49b, #89CFF0);
+    margin-top: auto; /* push to the bottom */
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
 }
 
 .logo {
@@ -49,26 +57,29 @@ footer {
     margin-top: 70px;
 }
 
-.flex-container {
-    display: flex;
-}
 
 .righttop-content {
-    flex: 1;
+    position: fixed; /* Use fixed positioning */
+    top: 100px; /* Add units (e.g., pixels) */
+    right: 0;
     text-align: right;
     margin-top: 10px;
 }
 
 .rightmiddle-content {
-    flex: 1;
+    position: fixed; /* Use fixed positioning */
     text-align: right;
+    top: 350px; /* Add units (e.g., pixels) */
+    right: 0;
+    margin-right: 50px;
     margin-top: 50px;
 }
 
 .left-content {
-    flex: 1;
+    position: absolute;
+    top: 100px;
+    left: 25;
     text-align: left;
-    margin-top: 10px;
 }
 
 .center-content {
@@ -169,8 +180,8 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #3BBACC;
-    border: 1px solid #3BBACC;
+    background-color: #89CFF0;
+    border: 1px solid #7bbbda;
     padding: 10px;
     margin-bottom: 10px;
     width: 70%;
@@ -181,10 +192,14 @@ footer {
 
 .project:hover {
     border: 1px solid black;
+    background-color: #7bbbda;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); /* Shadow appears on hover */
+
 }
 
 .project-name {
     margin-right: 10px;
+    margin-left: 10px;
 }
   
 .project-admin {
