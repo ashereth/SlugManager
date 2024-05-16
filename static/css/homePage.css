@@ -62,24 +62,26 @@ header {
     position: fixed; /* Use fixed positioning */
     top: 100px; /* Add units (e.g., pixels) */
     right: 0;
-    text-align: right;
+    text-align: left;
+    margin-right: 20px;
     margin-top: 10px;
 }
 
 .rightmiddle-content {
     position: fixed; /* Use fixed positioning */
-    text-align: right;
-    top: 350px; /* Add units (e.g., pixels) */
+    text-align: left;
+    top: 250px; /* Add units (e.g., pixels) */
     right: 0;
-    margin-right: 50px;
-    margin-top: 50px;
+    margin-right: 20px;
+    margin-top: 20px;
 }
 
 .left-content {
     position: absolute;
     top: 100px;
-    left: 25;
+    left: 0;
     text-align: left;
+    margin-left: 20px;
 }
 
 .center-content {
@@ -201,6 +203,11 @@ header {
     margin-right: 10px;
     margin-left: 10px;
 }
+
+.project-description {
+    margin-right: 10px;
+    margin-left: 0px;
+}
   
 .project-admin {
     margin-left: auto;
@@ -252,7 +259,7 @@ header {
 }
 
 .add-user-form {
-    background-color: white;
+    background-color: #89CFF0;
     padding: 20px;
     border-radius: 5px;
 }
@@ -285,6 +292,49 @@ header {
 }
 
 .add-user-form button:hover {
+    background-color: #FDE74C;
+}
+
+/* ---------------- ADD TASK FORM ---------------- */
+.add-task-form-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.add-task-form {
+    background-color: #89CFF0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.add-task-form h2 {
+    margin-bottom: 10px;
+}
+
+.add-task-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-task-form input[type="task"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-task-form button {
+    background-color: #7AA2E3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-task-form button:hover {
     background-color: #FDE74C;
 }
 

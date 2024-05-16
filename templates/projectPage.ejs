@@ -4,7 +4,8 @@
             <% projects.forEach(project => { %>
                 
                 <% if(projectName == project.name){ %>
-                    <h1 class="poppins-medium"><%= project.name %></h1>
+                    <h1 class="poppins-medium"><b><u><%= project.name %></u></b></h1>
+                    <p class="poppins-medium"><%= project.description %></p>
                     <% if(user == project.administrator) { %>
                         <!-- <div class="add-user-form-container">
 
@@ -27,7 +28,7 @@
                                     <div class="add-user-form">
                                         <!-- <h2 class="poppins-medium">Add collaborators.</h2> -->
                                         <form method="POST" action="/projects/<%= project.name %>">
-                                            <label class="work-sans-regular" for="userName">Add User by Username:</label>
+                                            <label class="work-sans-regular" for="userName"><b>Add User by Username:</b></label>
                                             <input type="name" id="userName" name="userName" required>
                                             <button type="submit">Send Invite</button>
                                         </form>
@@ -39,15 +40,15 @@
                         <div class="rightmiddle-content">
                             <div class="project-list">
                                                     
-                                    <div class="add-user-form-container">                       
+                                    <div class="add-task-form-container">                       
                                         <!-- Form to add a new task -->
                                         <div class="add-task-form">
-                                            <h2 class="poppins-medium">New Task.</h2>
+                                            <h2 class="poppins-medium">New Task:</h2>
                                             <form method="POST" action="/projects/<%= project.name%>/tasks">
                                                 <label class="work-sans-regular" for="taskName">Task Name</label>
-                                                <input type="text" id="taskName" name="taskName" required>
+                                                <input type="task" id="taskName" name="taskName" required>
                                                 <label class="work-sans-regular" for="taskName">Description:</label>
-                                                <input type="text" id="description" name="description" required>
+                                                <input type="task" id="description" name="description" required>
                                                 <button type="submit">Create</button>
                                             </form>
                                         </div>
@@ -63,62 +64,65 @@
     <div class="left-content">
         <style>
             .task-buttons-incomplete {
-                background-color: rgb(255, 39, 24);
+                background-color: rgb(255, 131, 146);
                 padding: 5px;
                 margin: 5px;
+                width: 800px;
+                height: 60px;
                 border-radius: 10px;
             }
             
             .task-buttons-complete {
-                background-color: rgb(6, 168, 6);
+                background-color: rgb(170, 255, 156);
                 padding: 5px;
                 margin: 5px;
+                width: 800px;
+                height: 60px;
                 border-radius: 10px;
             }
 
             .task-buttons-incomplete:hover {
-                background-color: rgb(216, 35, 22);
+                background-color: rgb(255, 99, 118);
                 box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); /* Shadow appears on hover */
                 cursor: pointer;
             }
             
             .task-buttons-complete:hover {
-                background-color: rgb(5, 141, 5);
+                background-color: rgb(125, 255, 104);
                 box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); /* Shadow appears on hover */
                 cursor: pointer;
             }
 
             
         </style>
-        <h1>To Do</h1>
+        <h2>To Do:</h2>
         <ul id="taskList" class="task-list">
             <% tasks.forEach(task => { %>
                 <% if(!task.completed){ %>
                     <form action="/tasks/markComplete/<%= projectName%>" method="POST">
                         <input type="hidden" name="taskName" value="<%= task.name %>">
                         <button type="submit" class="task-buttons-incomplete">
-                            <h3><%= task.name %></h3>
-                            <p>Description: <%= task.description %></p>
+                            <h3 style="text-align: left"><%= task.name %></h3>
+                            <p style="text-align: left"><%= task.description %></p>
                         </button>
                     </form>
                     
                 <% } %>
             <% }); %>
-        <h1>Completed</h1>
+        <h2>Completed:</h2>
             <% tasks.forEach(task => { %>
 
                 <% if(task.completed){ %>
                 <form action="/tasks/markComplete/<%= projectName%>" method="POST">
                     <input type="hidden" name="taskName" value="<%= task.name %>">
                     <button type="submit" class="task-buttons-complete">
-                        <h3><%= task.name %></h3>
-                            <p>Description: <%= task.description %></p>
+                        <h3 style="text-align: left"><%= task.name %></h3>
+                        <p style="text-align: left"><%= task.description %></p>
                     </button>
                 </form>
                     <% } %>
             <% }); %>
         </ul>
-
     </div>
 </div>
 <%- include("./partials/footer.ejs") %>
