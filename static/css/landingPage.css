@@ -1,67 +1,172 @@
-/* Override the background property for the header on the landing page */
-header {
-  background: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header, body {
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#fff49b, #89CFF0); /* Soft yellow background */
-    display: flex;
-    justify-content: center; /* Horizontally center content */
-    align-items: center; /* Vertically center content */
-    height: auto; /* Full height of the viewport */
+  background: linear-gradient(#fff49b, #89CFF0);
 }
-  
-  .landing-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .title-section {
-    text-align: center;
-  }
-  
-  .title {
-    left: 0;
-    line-height: 200px;
-    margin-top: -100px;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    font-size: 48px; /* Huge title */
-    color: #3f72af; /* Baby blue title color */
-  }
-  
-  .description {
-    left: 0;
-    line-height: 200px;
-    margin-top: -50px;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    color: #3f72af;
-  }
-  
+
+header {
+  padding-bottom: var(--space-4xl);
+  background-color: #fff49b !important;
+}
+
+header div{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40rem);
+}
+
 /*
-  .slug_img {
-    width: 30px; Adjust the size as needed 
-    height: auto;
-    margin-left: 5px; Adjust spacing between icon and text 
-  }*/
+TYPE scale
+- convert px to rems --> they will adapt to user display preferences
+*/
+
+:root {
+  /* type scale */
+  /* 48, 24, 20, 16, 14 */
+  --text-xl: 3rem;
+  --text-lg: 2.5rem;
+  --text-md: 1.25rem;
+  --text-base: 1rem;
+  --text-sm: .875rem;
+
+  /* line height */
+  --lh-heading: 1.25;
+  --lh-copy: 1.5;
+
+  /* spacing scale */
+  /* 160, 80, 40, 32, 24, 16 */
+  --space-4xl: 10rem;
+  --space-2xl: 5rem;
+  --space-xl: 2.5rem;
+  --space-lg: 2rem;
+  --space-md: 1.5;
+  --space-base: 1rem; 
+}
+
+h1 {
+  font-size: var(--text-xl);
+}
+
+h2 {
+  font-size: var(--text-lg);
+  max-width: 32ch;
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font-size: var(--text-lg);
+}
+
+h4 {
+  font-size: var(--text-md);
+}
+
+h1, h3, h4 {
+  line-height: var --lh-heading;
+  margin-bottom: var(--space-md);
+}
+
+h2, p {
+  line-height: var --lh-copy;
+}
+
+p {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-lg);
+}
+
+details {
+  max-width: 72ch;
+  margin-bottom: var(--space-md);
+}
+
+nav div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav, footer {
+  margin: var(--space-md);
+}
+
+nav {
+  margin-left: var(--space-lg);
+  margin-right: var(--space-lg);
+}
+
+header > div,
+section > div {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  padding-bottom: var(--space-4xl);
+}
+
+header div {
+  display: grid;
+  grid-template-columns: repeat();
+}
+
+.grid-cols-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 20rem);
+}
+
+section {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-4xl);
+}
+
+.imac {
+  width: 1280px;
+  height: 720px;
+  border: 4px solid black;
+  border-radius: 24px;
+  background-color: white;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.start-now-button {
+  display: inline-block;
+  background-color: #7AA2E3;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.25rem;
+  transition: background-color 0.3s, color 0.3s;
+  animation: pulse 2s infinite;
+}
+
+.start-now-button:hover {
+  background-color: #FDE74C;
+}
