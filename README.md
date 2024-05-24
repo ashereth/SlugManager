@@ -1,6 +1,8 @@
 # SlugManager
 All code related to group project for cse115a at UCSC. Made by Asher Etherington, Kenny Losier, Mia Santos, Nathan Le, Poppy Garner, Gino Zarich.
 
+__Link to deployed website [here](https://slugmanager.onrender.com/)__
+
 ## High Level Goals:
 - User Roles and Permissions: The app should support administrators and team members, each with different permissions. Administrators control task creation, deadlines, and task assignments.
 - Login Page that takes user to dashboard
