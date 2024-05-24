@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
 // uri for mongodb database
 export const config = {
-    mongoURI: 'mongodb+srv://asherce21:A252478ssd@cluster0.1xxrv63.mongodb.net/',
+    mongoURI: process.env.mongoURI,
     dbName: "slugmanager",
     usersCollection: "users",
     projectsCollection: "projects",

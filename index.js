@@ -74,7 +74,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // set main application variable using express
 const app = express();
 //set port for server to run on
-const port = 3000;
+const port = process.env.PORT;
 //bodyParser can now parse forms
 app.use(bodyParser.urlencoded({extended: true}));
 // serve static files from the 'static' directory
