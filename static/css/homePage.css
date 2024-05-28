@@ -89,6 +89,23 @@ header {
     margin-top: 20px;
 }
 
+/* ---------------- SCROLLBAR ---------------- */
+/* custom scrollbar for WebKit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
 /* ---------------- NAV ---------------- */
 .navbar {
     display: flex;
@@ -244,11 +261,6 @@ header {
     color: white;
     font-size: 24px;
     outline: none;
-}
-
-/* scrollbar--not on display */
-.project-gallery::-webkit-scrollbar {
-    display: none;
 }
 
 
