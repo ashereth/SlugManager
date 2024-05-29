@@ -11,7 +11,7 @@ task = {
     projectname: name of project that its a part of,
     name: should be given as taskName (unique),
     description: description of task (string),
-    username: trying something,
+    username: displays the user assigned to the task,
     completed: boolean false on default
 }
 -----------------------------------------------------------------------------*/
