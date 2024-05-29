@@ -11,6 +11,7 @@ task = {
     projectname: name of project that its a part of,
     name: should be given as taskName (unique),
     description: description of task (string),
+    username: trying something,
     completed: boolean false on default
 }
 -----------------------------------------------------------------------------*/
@@ -26,7 +27,7 @@ export class Tasks {
     }
 
     // method used to create a new project based on username
-    async createTask(projectName, taskName, description) {
+    async createTask(projectName, taskName, description, username) {
         const client = new MongoClient(this.uri);
         
         try {
@@ -45,6 +46,7 @@ export class Tasks {
                     projectName: projectName,
                     name: taskName,
                     description: description,
+                    username: username,
                     completed: false
                 }
                 //insert the new task into the collection

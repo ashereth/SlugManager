@@ -49,6 +49,8 @@
                                                 <input type="task" id="taskName" name="taskName" required>
                                                 <label class="work-sans-regular" for="taskName">Description:</label>
                                                 <input type="task" id="description" name="description" required>
+                                                <label class="work-sans-regular" for="taskName">Assign Team Member:</label>
+                                                <input type="task" id="username" name="username" required>
                                                 <button type="submit">Create</button>
                                             </form>
                                         </div>
@@ -104,6 +106,7 @@
                         <button type="submit" class="task-buttons-incomplete">
                             <h3 style="text-align: left"><%= task.name %></h3>
                             <p style="text-align: left"><%= task.description %></p>
+                            <p style="text-align: right">Assigned To: <%= task.username %></p>
                         </button>
                     </form>
                     
@@ -118,6 +121,7 @@
                     <button type="submit" class="task-buttons-complete">
                         <h3 style="text-align: left"><%= task.name %></h3>
                         <p style="text-align: left"><%= task.description %></p>
+                        <p style="text-align: right">Assigned To: <%= task.username %></p>
                     </button>
                 </form>
                     <% } %>
