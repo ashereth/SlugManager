@@ -257,13 +257,14 @@ app.post("/projects/:name/tasks", async (req, res) =>{
     // Get the task name from the request body
     const taskname = req.body.taskName;
     const taskDescription = req.body.description;
+    const username = req.body.username;
     const uri = config.mongoURI;
     const projects = new Projects(uri); // Initialize Projects class
     const tasks = new Tasks(uri);
 
     try {
         //Add task to database
-        let success = await tasks.createTask(projectName, taskname, taskDescription);
+        let success = await tasks.createTask(projectName, taskname, taskDescription, username);
 
         //Function for adding task to project
         //should only add to project if it was a new task name
