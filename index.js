@@ -199,7 +199,7 @@ app.post("/newProject", async (req, res) =>{
 
     try {
         //try to make project
-        let success = await projects.createProject(req.session.username, projectName, projectDescription);
+        await projects.createProject(req.session.username, projectName, projectDescription);
         //send to homepage
         res.redirect("/");
     } catch (error) {//catch any weird unexpected errors and reload page
