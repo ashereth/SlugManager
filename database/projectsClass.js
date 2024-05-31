@@ -52,7 +52,7 @@ export class Projects {
                 //insert the new user into the collection
                 const result = await collection.insertOne(newProject);
                 //insert the project name into the current users projects
-                this.users.addProjectToUser(username, projectName);
+                await this.users.addProjectToUser(username, projectName);
 
                 //print a success message
                 //console.log(`project created for ${newProject.administrator} successfully.`);
