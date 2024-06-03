@@ -5,9 +5,11 @@ All code related to group project for cse115a at UCSC. Made by Asher Etherington
 Connection to the database is made using a hidden .env file. In order to use this project on your own you must create your own .env file and give
 it a port number to run on aswell as the connection string to a mongodb database.
 Format the .env file like the example below
-'mongoURI=\<connection string here\>
+`
+mongoURI=\<connection string here\>
 
-PORT=\<port number here\>'
+PORT=\<port number here\>
+`
 __Link to deployed website [here](https://slugmanager.onrender.com/)__
 
 ## High Level Goals:
