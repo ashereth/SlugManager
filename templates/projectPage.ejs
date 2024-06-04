@@ -1,183 +1,165 @@
+<!-- Include the project page header -->
 <%- include("./partials/projectPageHeader.ejs") %>
-    <div class="left-content">
-        <div class="project-list">
-            <% projects.forEach(project => { %>
+
+<div class="left-content">
+    <div class="project-list">
+        <!-- Iterate through the list of projects -->
+        <% projects.forEach(project => { %>
+            
+            <!-- Check if the current project matches the selected project -->
+            <% if(projectName == project.name){ %>
+                <!-- Display the project name and description -->
+                <h1 class="poppins-medium"><b><u><%= project.name %></u></b></h1>
+                <p class="poppins-medium"><%= project.description %></p>
                 
-                <% if(projectName == project.name){ %>
-                    <h1 class="poppins-medium"><b><u><%= project.name %></u></b></h1>
-                    <p class="poppins-medium"><%= project.description %></p>
-                    <% if(user == project.administrator) { %>
-                        <!-- <div class="add-user-form-container">
-
-                            PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? 
-                            Form to add collaborators 
-                            <div class="add-user-form">
-                                <h2 class="poppins-medium">Add collaborators.</h2> 
-                                <form method="POST" action="/projects/<%= project.name %>">
-                                    <label class="work-sans-regular" for="userName">Add User by Username:</label>
-                                    <input type="name" id="userName" name="userName" required>
-                                    <button type="submit">Send Invite</button>
-                                </form>
-                            </div> -->
-
-                        <div class="righttop-content">                        
-                            <div class="project-list">
-                                <div class="add-user-form-container">
-                                    <!-- PROPOSE (Mia): what if we made this a pop up form after user clicks an 'add person' icon? -->
-                                    <!-- Form to add collaborators -->
-                                    <div class="add-user-form">
-                                        <!-- <h2 class="poppins-medium">Add collaborators.</h2> -->
-                                        <form method="POST" action="/projects/<%= project.name %>">
-                                            <label class="work-sans-regular" for="userName"><b>Add User by Username:</b></label>
-                                            <input type="name" id="userName" name="userName" required>
-                                            <button type="submit">Send Invite</button>
-                                        </form>
-                                    </div>
+                <!-- Check if the current user is the project administrator: This is required
+                as only administartors have the ability to create new tasks and add new users
+                to the project -->
+                <% if(user == project.administrator) { %>
+                    
+                    <!-- Form to add a new user to the project -->
+                    <div class="righttop-content">                        
+                        <div class="project-list">
+                            <div class="add-user-form-container">
+                                <!-- Proposed popup form after clicking an 'add person' icon -->
+                                <div class="add-user-form">
+                                    <form method="POST" action="/projects/<%= project.name %>">
+                                        <label class="work-sans-regular" for="userName"><b>Add User by Username:</b></label>
+                                        <input type="name" id="userName" name="userName" required>
+                                        <button type="submit">Send Invite</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="rightmiddle-content">
-                            <div class="project-list">
-                                                    
-                                    <div class="add-task-form-container">                       
-                                        <!-- Form to add a new task -->
-                                        <div class="add-task-form">
-                                            <h2 class="poppins-medium">New Task:</h2>
-                                            <form method="POST" action="/projects/<%= project.name%>/tasks">
-                                                <label class="work-sans-regular" for="taskName">Task Name</label>
-                                                <input type="task" id="taskName" name="taskName" required>
-                                                <label class="work-sans-regular" for="taskName">Description:</label>
-                                                <input type="task" id="description" name="description" required>
-                                                <label class="work-sans-regular" for="taskName">Assign Team Member:</label>
-                                                <input type="task" id="username" name="username" required>
-                                                <button type="submit">Create</button>
-                                            </form>
-                                        </div>
-
-                                    </div>
+                    <!-- Form to add a new task -->
+                    <div class="rightmiddle-content">
+                        <div class="project-list">
+                            <div class="add-task-form-container">                       
+                                <div class="add-task-form">
+                                    <h2 class="poppins-medium">New Task:</h2>
+                                    <form method="POST" action="/projects/<%= project.name%>/tasks">
+                                        <label class="work-sans-regular" for="taskName">Task Name</label>
+                                        <input type="task" id="taskName" name="taskName" required>
+                                        <label class="work-sans-regular" for="taskName">Description:</label>
+                                        <input type="task" id="description" name="description" required>
+                                        <label class="work-sans-regular" for="taskName">Assign Team Member:</label>
+                                        <input type="task" id="username" name="username" required>
+                                        <button type="submit">Create</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    <% } %>
-                <% } %>
-                
-            <% }); %>
-
-    <div class="left-content">
-        <style>
-            :root {
-                font-size: 16px;
-            }
-
-            .button-container {
-                /*display: flex;
-                width: 600px; 
-                height: 60px;
-                max-width: 800px;
-                min-width: 200px; 
-                max-height: 250px;
-                min-height: 60px;
-                resize: both;
-                overflow: auto;
-                box-sizing: border-box;*/
-                display: flex;
-                /*width: 50rem; /* 600px / 16 = 37.5rem */
-                width: 40vw;
-                height: 3.75rem; /* 60px / 16 = 3.75rem */
-                max-width: 100%; /* 800px / 16 = 50rem */
-                min-width: 12.5rem; /* 200px / 16 = 12.5rem */
-                max-height: 15.625rem; /* 250px / 16 = 15.625rem */
-                min-height: auto; /* 60px / 16 = 3.75rem */
-            }
-
-            .task-buttons-incomplete {
-                background-color: rgb(255, 131, 146);
-                /*padding: 5px;
-                margin: 5px;
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;*/
-                padding: 0.3125rem; /* 5px / 16 = 0.3125rem */
-                margin: 0.3125rem; /* 5px / 16 = 0.3125rem */
-                width: 100%;
-                height: 100%;
-                border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            
-            .task-buttons-complete {
-                background-color: rgb(170, 255, 156);
-                /*padding: 5px;
-                margin: 5px;
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;*/
-                padding: 0.3125rem; /* 5px / 16 = 0.3125rem */
-                margin: 0.3125rem; /* 5px / 16 = 0.3125rem */
-                width: 100%;
-                height: 100%;
-                border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-
-            .task-buttons-incomplete:hover {
-                background-color: rgb(255, 99, 118);
-                /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158); Shadow appears on hover */ 
-                box-shadow: 0.3125rem 0.3125rem 0.9375rem rgba(0, 0, 0, 0.158); /* 5px / 16 = 0.3125rem, 15px / 16 = 0.9375rem */
-                cursor: pointer;
-            }
-            
-            .task-buttons-complete:hover {
-                background-color: rgb(125, 255, 104);
-                /*box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.158);  Shadow appears on hover */
-                box-shadow: 0.3125rem 0.3125rem 0.9375rem rgba(0, 0, 0, 0.158); /* 5px / 16 = 0.3125rem, 15px / 16 = 0.9375rem */
-                cursor: pointer;
-            }
-
-            
-        </style>
-        <h2>To Do:</h2>
-        <ul id="taskList" class="task-list">
-            <% tasks.forEach(task => { %>
-                <% if(!task.completed){ %>
-                    <form action="/tasks/markComplete/<%= projectName%>" method="POST">
-                        <input type="hidden" name="taskName" value="<%= task.name %>">
-                        <div class="button-container">
-                            <button type="submit" class="task-buttons-incomplete">
-                                <h3 style="text-align: left"><%= task.name %></h3>
-                                <p style="text-align: left"><%= task.description %></p>
-                                <p style="text-align: right">Assigned To: <%= task.username %></p1>
-                            </button>
-                        </div>
-                    </form>
-                    
-                <% } %>
-            <% }); %>
-        <h2>Completed:</h2>
-            <% tasks.forEach(task => { %>
-
-                <% if(task.completed){ %>
-                <form action="/tasks/markComplete/<%= projectName%>" method="POST">
-                    <input type="hidden" name="taskName" value="<%= task.name %>">
-                    <div class="button-container">   
-                        <button type="submit" class="task-buttons-complete">
-                            <h3 style="text-align: left"><%= task.name %></h3>
-                            <p style="text-align: left"><%= task.description %></p>
-                            <p style="text-align: right">Assigned To: <%= task.username %></p>
-                        </button>
                     </div>
-                </form>
+                <% } %>
+            <% } %>
+            
+        <% }); %>
+
+        <!-- Section for making the task container a button and determining the color based
+        on whether they have been completed or not-->
+        <div class="left-content">
+            <style>
+                :root {
+                    font-size: 16px;
+                }
+
+                .button-container {
+                    display: flex;
+                    width: 40vw;
+                    height: 3.75rem; /* 60px / 16 = 3.75rem */
+                    max-width: 100%; /* 800px / 16 = 50rem */
+                    min-width: 12.5rem; /* 200px / 16 = 12.5rem */
+                    max-height: 15.625rem; /* 250px / 16 = 15.625rem */
+                    min-height: auto; /* 60px / 16 = 3.75rem */
+                }
+
+                .task-buttons-incomplete {
+                    background-color: rgb(255, 131, 146);
+                    padding: 0.3125rem; /* 5px / 16 = 0.3125rem */
+                    margin: 0.3125rem; /* 5px / 16 = 0.3125rem */
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                
+                .task-buttons-complete {
+                    background-color: rgb(170, 255, 156);
+                    padding: 0.3125rem; /* 5px / 16 = 0.3125rem */
+                    margin: 0.3125rem; /* 5px / 16 = 0.3125rem */
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                
+                .task-buttons-incomplete:hover {
+                    background-color: rgb(255, 99, 118);
+                    box-shadow: 0.3125rem 0.3125rem 0.9375rem rgba(0, 0, 0, 0.158); /* 5px / 16 = 0.3125rem, 15px / 16 = 0.9375rem */
+                    cursor: pointer;
+                }
+                
+                .task-buttons-complete:hover {
+                    background-color: rgb(125, 255, 104);
+                    box-shadow: 0.3125rem 0.3125rem 0.9375rem rgba(0, 0, 0, 0.158); /* 5px / 16 = 0.3125rem, 15px / 16 = 0.9375rem */
+                    cursor: pointer;
+                }
+            </style>
+
+            <!-- Section for incomplete tasks -->
+            <h2>To Do:</h2>
+            <ul id="taskList" class="task-list">
+                <!-- Iterate through the list of tasks -->
+                <% tasks.forEach(task => { %>
+                    <!-- Check if the task is not completed -->
+                    <% if(!task.completed){ %>
+                        <form action="/tasks/markComplete/<%= projectName%>" method="POST">
+                            <input type="hidden" name="taskName" value="<%= task.name %>">
+                            <div class="button-container">
+                                <button type="submit" class="task-buttons-incomplete">
+                                    <h3 style="text-align: left"><%= task.name %></h3>
+                                    <p style="text-align: left"><%= task.description %></p>
+                                    <p style="text-align: right">Assigned To: <%= task.username %></p>
+                                </button>
+                            </div>
+                        </form>
                     <% } %>
-            <% }); %>
-        </ul>
+                <% }); %>
+            </ul>
+
+            <!-- Section for completed tasks -->
+            <h2>Completed:</h2>
+            <ul id="taskList" class="task-list">
+                <!-- Iterate through the list of tasks -->
+                <% tasks.forEach(task => { %>
+                    <!-- Check if the task is completed -->
+                    <% if(task.completed){ %>
+                        <form action="/tasks/markComplete/<%= projectName%>" method="POST">
+                            <input type="hidden" name="taskName" value="<%= task.name %>">
+                            <div class="button-container">
+                                <button type="submit" class="task-buttons-complete">
+                                    <h3 style="text-align: left"><%= task.name %></h3>
+                                    <p style="text-align: left"><%= task.description %></p>
+                                    <p style="text-align: right">Assigned To: <%= task.username %></p>
+                                </button>
+                            </div>
+                        </form>
+                    <% } %>
+                <% }); %>
+            </ul>
+        </div>
     </div>
 </div>
+
+<!-- Include the footer -->
 <%- include("./partials/footer.ejs") %>

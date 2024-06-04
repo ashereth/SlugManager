@@ -1,41 +1,51 @@
-<!-- landingPage.ejs -->
-
 <!-- Include landing page header -->
 <%- include("./partials/landingPageHeader.ejs") %>
 
 <!-- Content for landing page -->
-    <h1 style="text-align: center; font-size: 4rem;">Welcome to SlugManager</h1>
-    <h3 style="font-weight: 500; text-align: center;">For all your sluggish task managing needs.</h3>
+<h1 style="text-align: center; font-size: 4rem;">Welcome to SlugManager</h1>
+<h3 style="font-weight: 500; text-align: center;">For all your sluggish task managing needs.</h3>
+
 <section>
     <div>
+        <!-- Introduction section: gives an overview of the project mission and goals -->
         <h2>Designed by students, for students.</h2>
-        <p> As part of a class project at UC Santa Cruz, we've crafted a tool tailored to help high schoolers and college students transition seamlessly into the world of professional project management.
+        <p>
+            As part of a class project at UC Santa Cruz, we've crafted a tool tailored to help high schoolers and college students transition seamlessly into the world of professional project management.
             At SlugManager, we believe in more than just managing tasks; we're here to instill good habits—accountability, responsibility, teamwork, and time management skills—that will serve you well throughout your academic and professional journey.
         </p>
     </div>
     <div class="imac">
+        <!-- Video demonstration: Video demo playable on the website landing page -->
         <video class="imac-video" controls>
             <source src="may28-demo-music.mp4" type="video/mp4">
         </video>
     </div>
     <div class="button-container">
+        <!-- Get Started button: animated button that take the user to the login/reg page -->
         <a href="/login" class="start-now-button">Get Started!</a>
     </div>
 </section>
+
 <section>
     <div>
+        <!-- Section that provides description of each of the main components of the website and how to use them -->
         <h3>How it works</h3>
-        <p>Our platform offers a user-friendly interface that simplifies task organization, making it easy for students to create, delegate, and track their tasks with ease. Whether you're juggling multiple individual assignments, extracurricular activities, or group projects, SlugManager keeps you organized and on track.</p>
+        <p>
+            Our platform offers a user-friendly interface that simplifies task organization, making it easy for students to create, delegate, and track their tasks with ease. Whether you're juggling multiple individual assignments, extracurricular activities, or group projects, SlugManager keeps you organized and on track.
+        </p>
         <div class="grid-cols-3">
             <div>
+                <!-- Project Creation explanation -->
                 <h4>Project Creation</h4>
                 <p>Users can create projects and invite team members via username, promoting collaboration and teamwork.</p>
             </div>
             <div>
+                <!-- Progress Monitoring explanation -->
                 <h4>Progress Monitoring</h4>
                 <p>Team members can mark assigned tasks as complete; administrators have access to a project dashboard showing the statuses of all tasks and individual team member progress, enabling effective project oversight.</p>
             </div>
             <div>
+                <!-- Personalized Dashboard explanation -->
                 <h4>Personalized Dashboard</h4>
                 <p>Each user has access to a personalized dashboard displaying their tasks (with descriptions), progress, and deadlines.</p>
             </div>

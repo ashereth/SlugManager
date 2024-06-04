@@ -1,18 +1,30 @@
+
+  <!-- index.ejs is the file used for styling the hoempage after a user has logged in -->
+<!-- Include the main page header partial -->
 <%- include("./partials/mainPageHeader.ejs") %>
-<!-- <h2 class="work-sans-bold">Homepage</h2> -->
+
+<!-- Main content centered on the page -->
 <div class="center-content">
+    <!-- Welcome message -->
     <h1 class="poppins-medium" style="margin-bottom: 25px;">Hello.</h1>
     <p class="poppins-regular">All projects</p>
     
+    <!-- Container for the project gallery -->
     <div class="gallery-container">
         <div class="project-gallery-container">
             <div class="project-gallery">
+                <!-- Loop through each project and display its details -->
                 <% projects.forEach(project => { %>
                     
+                        <!-- Link to the project page -->
                         <a href="/projects/<%= project.name %>">
+                            <!-- Project details container -->
                             <div class="project">
+                                <!-- Project name -->
                                 <h3 class="project-name"><u><%= project.name %></u></h3>
+                                <!-- Project description -->
                                 <p class="project-description"><%= project.description %></p>
+                                <!-- Project administrator -->
                                 <p class="project-admin"><strong>Admin:</strong> <%= project.administrator %></p>
                             </div>
                         </a>
@@ -21,24 +33,19 @@
             </div>
         </div>
     </div>
-
-
-    <!--
-         PROPOSE (Mia): show quick list of tasks that have assigned due dates
-         within the next two weeks?
-
-        refer to Jira (Worked on; Viewed; Assigned to me; Starred) and Notion (My tasks)
-    -->
-
 </div>
+
+<!-- Include the footer partial -->
 <%- include("./partials/footer.ejs") %>
 
+<!-- JavaScript for handling gallery navigation buttons -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const prevBtn = document.querySelector('.prev-btn');
         const nextBtn = document.querySelector('.next-btn');
         const gallery = document.querySelector('.project-gallery');
 
+        // Scroll the gallery to the left when the previous button is clicked
         prevBtn.addEventListener('click', function() {
             gallery.scrollBy({
                 left: -200,
@@ -46,6 +53,7 @@
             });
         });
 
+        // Scroll the gallery to the right when the next button is clicked
         nextBtn.addEventListener('click', function() {
             gallery.scrollBy({
                 left: 200,

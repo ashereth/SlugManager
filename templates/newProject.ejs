@@ -1,16 +1,31 @@
+<!-- Include the main page header -->
 <%- include("./partials/mainPageHeader.ejs") %>
+
+<!-- Main content centered on the page -->
 <div class="center-content">
+    <!-- Page title -->
     <h1 class="poppins-medium">Create a new project.</h1>
+
+    <!-- Container for the add user form -->
+    <!-- This for is used for creating a new project -->
     <div class="add-user-form-container">
+        <!-- Add user form -->
         <div class="add-user-form">
-        <form action="/newProject" method="post">
-            <label class="work-sans-regular" for="projectName">Project Name:</label>
-            <input type="name" id="projectName" name="projectName" required>
-            <label class="work-sans-regular" for="projectName">Description:</label>
-            <input type="text" id="description" name="description" required>
-            <button type="submit">Create Project</button>
-        </form>
+            <form action="/newProject" method="post">
+                <!-- Project Name input field -->
+                <label class="work-sans-regular" for="projectName">Project Name:</label>
+                <input type="name" id="projectName" name="projectName" required>
+
+                <!-- Project Description input field -->
+                <label class="work-sans-regular" for="description">Description:</label>
+                <input type="text" id="description" name="description" required>
+
+                <!-- Submit button -->
+                <button type="submit">Create Project</button>
+            </form>
         </div>
     </div>
-</div>      
-<%- include("./partials/footer.ejs")  %>
+</div>
+
+<!-- Include the footer -->
+<%- include("./partials/footer.ejs") %>
